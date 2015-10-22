@@ -1,0 +1,5 @@
+- lineinfile:
+    create: true
+    dest: "{{ test_add_file_path }}"
+    line: "I am a self aware host and my name is {{ inventory_hostname }}."
+

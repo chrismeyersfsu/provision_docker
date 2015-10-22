@@ -1,0 +1,71 @@
+---
+# Note: had to add UserKnownHostsFile /dev/null to /etc/ssh/ssh_config for bug
+# https://github.com/ansible/ansible-modules-core/issues/270
+
+# TODO: Loop over inventory, check for provision_docker_image and provision_docker_file
+# Prefer provision_dockerfile over provision_docker_image if both defined
+#
+# TODO: Loop over inventory, if provision_docker_image and provision_docker_file is not 
+# set, then set provision_docker_image to provision_docker_image_default
+#
+
+# TODO: IMPORVEMENT: Loop over inventory, create dict of all provision_docker_file as the key.
+# (This will de-duplicate)
+# Build all provision_docker_file images and assign a name provision_docker_ (use #'s for now)
+#
+# Note: we invoke command because docker_image dockerfile support isn't added until 2.0
+#- name: Build container
+#  local_action:
+#    module: "command docker build -t {{ provision_docker_company }}/{{ inventory_hostname }}"
+#  when: hostvars[inventory_hostname]['provision_docker_file'] is defined
+
+- name: Bring up testing hosts
+  local_action: 
+    module: docker
+    name: "{{ item['name'] }}"
+    image: "{{ item.image|default(provision_docker_image_default) }}"
+    privileged: "{{ provision_docker_privileged }}"
+    state: "{{ provision_docker_state }}"
+    use_tls: "{{ provision_docker_use_tls }}"
+    expose:
+      - "1-65535"
+  with_items: provision_docker_inventory
+
+# TODO: move next two tasks to separate include file and only call on when
+# condition
+#
+# Note: We had to move the invocation of the docker inspect command into a bash
+# script because it involces a command line parameter with {{ }}. Registering 
+# the results puts the command line params into invocation. Referencing the 
+# results variable fails because Ansible runs the invocation through jinja2 
+# template engine and the {{.NetworkSettings.IPAddress}} variable does not 
+# exist
+# TODO: Check if no results (i.e. results.stdout_lines length) returned from
+# docker_inspect.sh
+- name: Get IP of container
+  local_action:
+    module: "shell cd {{ provision_docker_dir }} && ./files/docker_inspect.sh {{ item.name }}"
+  register: provision_docker_ip
+  with_items: provision_docker_inventory
+
+# TODO: copy ALL host vars in the inventory
+- name: "Associate ip address with hosts"
+  local_action:
+    module: add_host
+    name: "{{ item.1['name'] }}"
+    ansible_ssh_host: "{{ provision_docker_ip.results[item.0].stdout }}"
+    ansible_ssh_user: "{{ provision_docker_ssh_user }}"
+    ansible_ssh_pass: "{{ provision_docker_ssh_pass }}"
+    groups: docker_containers
+  with_indexed_items: provision_docker_inventory
+
+- name: Wait for ssh
+  wait_for:
+    host: "{{ hostvars[item.name]['ansible_ssh_host'] }}"
+    port: 22
+    timeout: 30
+  with_items: provision_docker_inventory
+
+# centos6 needs time
+- pause: seconds=5
+
