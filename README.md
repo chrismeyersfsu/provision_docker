@@ -15,6 +15,9 @@ ubuntu-upstart:14.04
 
 ## Example Playbook
 [main.yml](https://github.com/chrismeyersfsu/provision_docker/blob/master/test/main.yml)
+[role-install_mongod](https://github.com/chrismeyersfsu/role-install_mongod)
+[role-ansible_deps](https://github.com/chrismeyersfsu/role-ansible_deps)
+[role-iptables](https://github.com/chrismeyersfsu/role-iptables)
 
 ## Role Variables
 [main.yml](https://github.com/chrismeyersfsu/provision_docker/blob/master/defaults/main.yml)
