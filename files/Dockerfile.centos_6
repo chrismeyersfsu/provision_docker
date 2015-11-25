@@ -18,6 +18,7 @@ RUN sed -i 's/#PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
 #sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
 #sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config
 RUN echo 'root:docker.io' | chpasswd
+RUN /etc/init.d/sshd start
 
 EXPOSE 22
 
