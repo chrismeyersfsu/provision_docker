@@ -13,6 +13,7 @@ before_install:
     # Ansible doesn't play well with virtualenv
   - deactivate
   - sudo apt-get update -qq
+  - sudo apt-get install docker-engine
 
 install:
   - sudo pip install docker-py
@@ -28,4 +29,4 @@ script:
   # Ensure any invocation of ansible-playbook (i.e. sudo) results in host_key_checking disabled
   - sudo ansible all -i "127.0.0.1," -m lineinfile -a "regexp=^#host_key_checking dest=/etc/ansible/ansible.cfg line='host_key_checking = False'" -c local
   - ansible-playbook -i test/inventory test/main.yml --syntax-check
-  - sudo ansible-playbook -i test/inventory -e "docker_api_version=1.20" test/main.yml
+  - sudo ansible-playbook -i test/inventory test/main.yml
