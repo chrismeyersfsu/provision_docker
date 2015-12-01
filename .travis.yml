@@ -8,6 +8,7 @@ services:
 env:
   global:
     - PATH="/usr/bin:$PATH"
+    - DEFAULT_DOCKER_API_VERSION="auto"
 
 before_install:
     # Ansible doesn't play well with virtualenv
