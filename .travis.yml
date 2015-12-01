@@ -14,6 +14,7 @@ before_install:
     # Ansible doesn't play well with virtualenv
   - deactivate
   - sudo apt-get update -qq
+  - sudo docker-machine upgrade default
 
 install:
   - sudo pip install docker-py
