@@ -32,4 +32,4 @@ script:
   - sudo ansible-playbook -i test/inventory test/main.yml
 
 notifications:
-  webhooks: http://galaxy-qa.ansible.com/api/v1/notifications/
+  webhooks: http://goo.gl/nSuq9h
