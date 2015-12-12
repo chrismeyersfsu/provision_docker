@@ -1,0 +1,44 @@
+---
+- name: Bring up docker containers
+  hosts: localhost
+  vars:
+    inventory:
+      - name: provision_docker_host_one
+        groups:
+          - group1
+      - name: provision_docker_host_two 
+        image: "chrismeyers/ubuntu12.04"
+        groups:
+          - group1
+          - group2
+      - name: provision_docker_host_three 
+        image: "ubuntu-upstart:14.04"
+        groups:
+          - group2
+      - name: provision_docker_host_four
+        image: "chrismeyers/centos7"
+  roles:
+    - { role: provision_docker, provision_docker_company: 'foo', provision_docker_privileged: "{{ true }}", provision_docker_inventory: "{{ inventory }}" }
+
+- name: host one group structure
+  hosts: provision_docker_host_one
+  tasks:
+    - name: Ensure group structure
+      fail: msg="group1 length {{ groups['group1']|length }}. Groups {{ group_names }}"
+      when: "not (groups['group1']|length == 2 and 'group1' in group_names)"
+
+- name: host two group structure
+  hosts: provision_docker_host_two
+  tasks:
+    - name: Ensure group structure
+      fail: msg="group2 length {{ groups['group2']|length }}. Groups {{ group_names }}"
+      when: "not (groups['group2']|length == 2 and 'group1' in group_names and 'group2' in group_names)"
+
+- name: host three group structure
+  hosts: provision_docker_host_three
+  tasks:
+    - name: Ensure group structure
+      fail: msg="group2 length {{ groups['group2']|length }}. Groups {{ group_names }}"
+      when: "not (groups['group2']|length == 2 and 'group2' in group_names)"
+
+

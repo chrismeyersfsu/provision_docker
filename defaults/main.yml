@@ -9,3 +9,5 @@ provision_docker_ssh_pass: "docker.io"
 provision_docker_use_tls: "no"
 provision_docker_state: "reloaded"
 provision_docker_inventory: []
+provision_docker_groups:
+  - 'docker_containers'
