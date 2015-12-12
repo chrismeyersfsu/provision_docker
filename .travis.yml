@@ -30,6 +30,7 @@ script:
   - sudo ansible all -i "127.0.0.1," -m lineinfile -a "regexp=^#host_key_checking dest=/etc/ansible/ansible.cfg line='host_key_checking = False'" -c local
   - ansible-playbook -i test/inventory test/main.yml --syntax-check
   - sudo ansible-playbook -i test/inventory test/main.yml
+  - sudo ansible-playbook -i test/inventory test/groups.yml
 
 notifications:
   webhooks: http://goo.gl/nSuq9h
