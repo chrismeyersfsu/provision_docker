@@ -64,3 +64,7 @@ ansible-playbook -i inventory main.yml
 
 ## Testing w/ Travis-CI
 Take a look at [.travis.yml](https://github.com/chrismeyersfsu/provision_docker/blob/master/.travis.yml) to see how to test your role using travis-ci.
+
+## Similar Work
+
+* https://github.com/metacloud/molecule 
