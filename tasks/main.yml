@@ -44,7 +44,8 @@
 # docker_inspect.sh
 - name: Get IP of container
   local_action:
-    module: "shell cd {{ provision_docker_dir }} && ./files/docker_inspect.sh {{ item.name }}"
+    module: "shell"
+    args: "{{ role_path }}/files/docker_inspect.sh {{ item.name }}"
   register: provision_docker_ip
   with_items: provision_docker_inventory
 
