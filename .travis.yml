@@ -30,4 +30,4 @@ script:
   - cd test && sudo ansible-playbook -i inventory main.yml && sudo ansible-playbook -i inventory groups.yml
 
 notifications:
-  webhooks: http://goo.gl/nSuq9h
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
