@@ -27,8 +27,8 @@ install:
 
 script:
   - ansible-playbook -i test/inventory test/main.yml --syntax-check
-  - sudo ansible-playbook -i test/inventory test/main.yml
-  - sudo ansible-playbook -i test/inventory test/groups.yml
+  - cd test && sudo ansible-playbook -i inventory main.yml
+  - cd test && sudo ansible-playbook -i inventory groups.yml
 
 notifications:
   webhooks: http://goo.gl/nSuq9h
