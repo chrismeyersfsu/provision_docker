@@ -1,0 +1,49 @@
+- name: Bring up list of hosts
+  local_action: 
+    module: docker
+    name: "{{ item['name'] }}"
+    image: "{{ item.image|default(provision_docker_image_default) }}"
+    privileged: "{{ provision_docker_privileged }}"
+    state: "{{ provision_docker_state }}"
+    use_tls: "{{ provision_docker_use_tls }}"
+    expose:
+      - "1-65535"
+  with_items: "{{ provision_docker_inventory }}"
+
+# Note: We had to move the invocation of the docker inspect command into a bash
+# script because it involces a command line parameter with {{ }}. Registering 
+# the results puts the command line params into invocation. Referencing the 
+# results variable fails because Ansible runs the invocation through jinja2 
+# template engine and the {{.NetworkSettings.IPAddress}} variable does not 
+# exist
+# TODO: Check if no results (i.e. results.stdout_lines length) returned from
+# docker_inspect.sh
+- name: Get IP of container
+  local_action:
+    module: "shell"
+    args: "{{ role_path }}/files/docker_inspect.sh {{ item.name }}"
+  register: provision_docker_ip
+  with_items: "{{ provision_docker_inventory }}"
+
+# TODO: copy ALL host vars in the inventory
+- name: "Associate ip address with hosts"
+  local_action:
+    module: add_host
+    name: "{{ item.1['name'] }}"
+    ansible_ssh_host: "{{ provision_docker_ip.results[item.0].stdout }}"
+    ansible_ssh_user: "{{ item.1['ansible_ssh_user']|default(provision_docker_ssh_user) }}"
+    ansible_ssh_pass: "{{ item.1['ansible_ssh_pass']|default(provision_docker_ssh_pass) }}"
+    groups: "{{ provision_docker_groups | union(item.1['groups']|default([])) | join(',') }}"
+  with_indexed_items: "{{ provision_docker_inventory }}"
+
+- name: Wait for ssh
+  wait_for:
+    host: "{{ hostvars[item.name]['ansible_ssh_host'] }}"
+    port: 22
+    timeout: 30
+  with_items: "{{ provision_docker_inventory }}"
+
+# TODO: Replace with better methodology
+# centos6 needs time
+- pause: seconds=5
+
