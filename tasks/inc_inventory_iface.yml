@@ -18,7 +18,6 @@
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory_group }}"
 
-# TODO: This does not work because we are setting facts on localhost
 - name: "Associate ip address with hosts"
   set_fact:
     ansible_ssh_host: "{{ provision_docker_ip.results[item.0].stdout }}"
