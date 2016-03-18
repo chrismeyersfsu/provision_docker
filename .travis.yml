@@ -27,7 +27,7 @@ install:
 
 script:
   - ansible-playbook -i test/inventory test/main.yml --syntax-check
-  - cd test && sudo ansible-playbook -i inventory main.yml && sudo ansible-playbook -i inventory groups.yml
+  - cd test && make
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

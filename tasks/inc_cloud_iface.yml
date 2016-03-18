@@ -43,7 +43,8 @@
     timeout: 30
   with_items: "{{ provision_docker_inventory }}"
 
-# TODO: Replace with better methodology
-# centos6 needs time
-- pause: seconds=5
+- name: Make sure ssh is really up
+  ping:
+  delegate_to: "{{ item['name'] }}"
+  with_items: "{{ provision_docker_inventory }}"
 

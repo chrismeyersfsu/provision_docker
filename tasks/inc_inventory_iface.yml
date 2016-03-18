@@ -37,4 +37,6 @@
 
 - name: Make sure ssh is really up
   ping:
+  delegate_to: "{{ item }}"
+  with_items: "{{ provision_docker_inventory_group }}"
 
