@@ -1,0 +1,39 @@
+---
+- name: Bring up docker containers
+  hosts: localhost
+  vars:
+    inventory:
+      - name: provision_docker_host_one
+      - name: provision_docker_host_two 
+        image: "chrismeyers/ubuntu12.04"
+      - name: provision_docker_host_three 
+        image: "ubuntu-upstart:14.04"
+      - name: provision_docker_host_four
+        image: "chrismeyers/centos7"
+  roles:
+    - { role: provision_docker, provision_docker_company: 'foo', provision_docker_privileged: "{{ true }}", provision_docker_inventory: "{{ inventory }}" }
+
+- name: Run Tests
+  hosts: docker_containers
+  vars:
+    file: '/tmp/my_host'
+  roles:
+    # Role under test
+    - { role: test_add_file, test_add_file_path: "{{ file }}"  }
+  tasks:
+    # Verify role behavior
+    - name: Ensure provision_docker_host_one file contents
+      shell: 'echo "I am a self aware host and my name is provision_docker_host_one." > /tmp/compare && cmp {{ file }} /tmp/compare'
+      when: inventory_hostname == "provision_docker_host_one"
+
+    - name: Ensure provision_docker_host_two file contents
+      shell: 'echo "I am a self aware host and my name is provision_docker_host_two." > /tmp/compare && cmp {{ file }} /tmp/compare'
+      when: inventory_hostname == "provision_docker_host_two"
+
+    - name: Ensure provision_docker_host_three file contents
+      shell: 'echo "I am a self aware host and my name is provision_docker_host_three." > /tmp/compare && cmp {{ file }} /tmp/compare'
+      when: inventory_hostname == "provision_docker_host_three"
+    
+    - name: Ensure provision_docker_host_four file contents
+      shell: 'echo "I am a self aware host and my name is provision_docker_host_four." > /tmp/compare && cmp {{ file }} /tmp/compare'
+      when: inventory_hostname == "provision_docker_host_four"

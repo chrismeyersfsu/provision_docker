@@ -1,0 +1,41 @@
+- name: Bring up inventory group of hosts
+  local_action: 
+    module: docker
+    # TODO: |default(random_hostname)
+    name: "{{ item }}"
+    image: "{{ hostvars[item].image|default(provision_docker_image_default) }}"
+    privileged: "{{ provision_docker_privileged | bool}}"
+    state: "{{ provision_docker_state }}"
+    use_tls: "{{ provision_docker_use_tls }}"
+    expose:
+      - "1-65535"
+  with_items: "{{ provision_docker_inventory_group }}"
+
+- name: Get IP of container
+  local_action:
+    module: "shell"
+    args: "{{ role_path }}/files/docker_inspect.sh {{ item }}"
+  register: provision_docker_ip
+  with_items: "{{ provision_docker_inventory_group }}"
+
+- name: "Associate ip address with hosts"
+  set_fact:
+    ansible_ssh_host: "{{ provision_docker_ip.results[item.0].stdout }}"
+    ansible_ssh_user: "{{ hostvars[item.1]['ansible_ssh_user']|default(provision_docker_ssh_user) }}"
+    ansible_ssh_pass: "{{ hostvars[item.1]['ansible_ssh_pass']|default(provision_docker_ssh_pass) }}"
+  delegate_to: "{{ item.1 }}"
+  delegate_facts: True
+  with_indexed_items: "{{ provision_docker_inventory_group }}"
+
+- name: Wait for ssh
+  wait_for:
+    host: "{{ hostvars[item]['ansible_ssh_host'] }}"
+    port: 22
+    timeout: 30
+  with_items: "{{ provision_docker_inventory_group }}"
+
+- name: Make sure ssh is really up
+  ping:
+  delegate_to: "{{ item }}"
+  with_items: "{{ provision_docker_inventory_group }}"
+

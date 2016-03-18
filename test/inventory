@@ -1,1 +1,15 @@
 localhost ansible_connection=local
+
+[robots]
+
+[autobots]
+optimus
+ironhide
+
+[decepticons]
+megatron
+starscream
+
+[robots:children]
+autobots
+decepticons
