@@ -24,6 +24,8 @@
     ansible_ssh_host: "{{ provision_docker_ip.results[item.0].stdout }}"
     ansible_ssh_user: "{{ hostvars[item.1]['ansible_ssh_user']|default(provision_docker_ssh_user) }}"
     ansible_ssh_pass: "{{ hostvars[item.1]['ansible_ssh_pass']|default(provision_docker_ssh_pass) }}"
+  delegate_to: "{{ item.1 }}"
+  delegate_facts: True
   with_indexed_items: "{{ provision_docker_inventory_group }}"
 
 - name: Wait for ssh
@@ -33,7 +35,6 @@
     timeout: 30
   with_items: "{{ provision_docker_inventory_group }}"
 
-# TODO: Replace with better methodology
-# centos6 needs time
-- pause: seconds=5
+- name: Make sure ssh is really up
+  ping:
 

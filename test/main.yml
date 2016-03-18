@@ -1,3 +1,5 @@
 ---
 - include: playbook_cloud_iface.yml
+  tags: test_cloud_iface
 - include: playbook_inventory_iface.yml
+  tags: test_inventory_iface
