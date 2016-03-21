@@ -18,7 +18,7 @@
       - name: provision_docker_host_four
         image: "chrismeyers/centos7"
   roles:
-    - { role: provision_docker, provision_docker_company: 'foo', provision_docker_privileged: "{{ true }}", provision_docker_inventory: "{{ inventory }}" }
+    - { role: provision_docker, provision_docker_privileged: "{{ true }}", provision_docker_inventory: "{{ inventory }}" }
 
 - name: host one group structure
   hosts: provision_docker_host_one

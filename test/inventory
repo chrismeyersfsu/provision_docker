@@ -3,12 +3,12 @@ localhost ansible_connection=local
 [robots]
 
 [autobots]
-optimus
-ironhide
+optimus image="chrismeyers/ubuntu12.04"
+ironhide image="ubuntu-upstart:14.04"
 
 [decepticons]
-megatron
-starscream
+megatron image="chrismeyers/centos7"
+starscream image="chrismeyers/centos6"
 
 [robots:children]
 autobots
