@@ -7,7 +7,7 @@ optimus image="chrismeyers/ubuntu12.04"
 ironhide image="ubuntu-upstart:14.04"
 
 [decepticons]
-megatron image="chrismeyers/centos7"
+megatron image="chrismeyers/centos6"
 starscream image="chrismeyers/centos6"
 
 [robots:children]
