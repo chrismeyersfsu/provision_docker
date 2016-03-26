@@ -4,6 +4,8 @@
 # provision_docker 
 An Ansible role used to create and start docker containers for each inventory host used in a play. Useful for testing.
 
+[Blog post](https://www.ansible.com/blog/testing-ansible-roles-with-docker) on how to use `provision_docker` to test roles.
+
 Recomended docker images.
 ```
 chrismeyers/centos6
