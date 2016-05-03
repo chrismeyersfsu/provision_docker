@@ -26,7 +26,7 @@ ubuntu-upstart:14.04
 Take a look at [.travis.yml](https://github.com/chrismeyersfsu/provision_docker/blob/master/.travis.yml) to see how to test your role using travis-ci.
 
 ## Mac OS X + docker-machine + VirtualBox
-`provision_docker` relies on being able to ssh to containers. Thus, the ip of the container must be accessible. If your using docker toolbox on OS X + virtualbox containers are not routed to the host. Run the below commands to be add a route to the containers in the guest VM.
+`provision_docker` relies on being able to ssh to containers. Thus, the ip of the container must be accessible (a route must exist). If your using docker toolbox on OS X + virtualbox containers are not routed to the host. Run the below commands to be add a route to the containers in the guest VM.
 ```
 /usr/sbin/scutil -w State:/Network/Interface/vboxnet0/IPv4 -t 0
 sudo /sbin/route -n add -net 172.17.0.0 -netmask 255.255.0.0 -gateway $(docker-machine ip)
