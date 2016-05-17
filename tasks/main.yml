@@ -1,6 +1,10 @@
 ---
 # Note: Ignore host key checking when using this module because it's common that docker contains will start with IP addresses that already have ssh signatures associated.
 
+- name: Ensure required vars are defined
+  fail: msg="provision_docker_inventory_group or provision_docker_inventory is required"
+  when: "provision_docker_inventory_group is not defined and provision_docker_inventory is not defined"
+
 - include: inc_inventory_iface.yml
   when: "{{ provision_docker_inventory_group | length }} > 0"
 

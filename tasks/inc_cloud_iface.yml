@@ -24,6 +24,7 @@
     args: "{{ role_path }}/files/docker_inspect.sh {{ item.name }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory }}"
+  changed_when: false
 
 # TODO: copy ALL host vars in the inventory
 - name: "Associate ip address with hosts"
@@ -35,6 +36,7 @@
     ansible_ssh_pass: "{{ item.1['ansible_ssh_pass']|default(provision_docker_ssh_pass) }}"
     groups: "{{ provision_docker_groups | union(item.1['groups']|default([])) | join(',') }}"
   with_indexed_items: "{{ provision_docker_inventory }}"
+  changed_when: false
 
 - name: Wait for ssh
   wait_for:
