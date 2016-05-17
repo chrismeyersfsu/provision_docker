@@ -18,6 +18,7 @@
     args: "{{ role_path }}/files/docker_inspect.sh {{ item }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory_group }}"
+  changed_when: false
 
 - name: "Associate ip address with hosts"
   set_fact:
@@ -27,6 +28,7 @@
   delegate_to: "{{ item.1 }}"
   delegate_facts: True
   with_indexed_items: "{{ provision_docker_inventory_group }}"
+  changed_when: false
 
 - name: Wait for ssh
   wait_for:
