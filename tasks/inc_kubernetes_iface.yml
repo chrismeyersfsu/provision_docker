@@ -1,0 +1,15 @@
+- include: "inc_kubernetes_iface_pod.yml"
+  with_items: "{{ provision_docker_kubernetes }}"
+
+- name: Wait for ssh
+  wait_for:
+    host: "{{ hostvars[item]['ansible_ssh_host'] }}"
+    port: 22
+    timeout: 30
+  with_items: "{{ provision_docker_kubernetes }}"
+
+- name: Make sure ssh is really up
+  ping:
+  delegate_to: "{{ item }}"
+  with_items: "{{ provision_docker_kubernetes }}"
+

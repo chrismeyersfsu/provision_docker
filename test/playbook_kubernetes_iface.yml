@@ -1,0 +1,26 @@
+---
+- name: Bring up kubernetes containers
+  hosts: localhost
+  roles:
+    - role: provision_docker
+      provision_docker_kubernetes: "{{ groups['autobots'] }}"
+
+- name: Run Tests
+  hosts: autobots
+  vars:
+    file: '/tmp/my_host'
+  roles:
+    # Role under test
+    - role: test_add_file
+      test_add_file_path: "{{ file }}"
+
+  tasks:
+    # Verify role behavior
+    - name: Ensure optimus file contents
+      shell: 'echo "I am a self aware host and my name is optimus." > /tmp/compare && cmp {{ file }} /tmp/compare'
+      when: inventory_hostname == "optimus"
+
+    - name: Ensure ironhide file contents
+      shell: 'echo "I am a self aware host and my name is ironhide." > /tmp/compare && cmp {{ file }} /tmp/compare'
+      when: inventory_hostname == "ironhide"
+

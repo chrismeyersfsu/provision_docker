@@ -1,0 +1,21 @@
+kind: "Pod"
+apiVersion: "v1"
+metadata:
+  name: "{{ item }}"
+  namespace: "default"
+  labels:
+    name: "{{ item }}"
+spec:
+  containers:
+    - name: "test-default"
+      image: "{{ hostvars[item].image|default(provision_docker_image_default) }}"
+      ports:
+        - containerPort: 22
+        - containerPort: 80
+        - containerPort: 443
+        - containerPort: 8080
+        - containerPort: 5432
+      # TODO: If privileged
+      securityContext:
+        privileged: true
+

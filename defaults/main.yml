@@ -1,4 +1,5 @@
 ---
+provision_docker_tmp_file: "/tmp/pod.yml"
 provision_docker_image_default: "chrismeyers/centos6"
 provision_docker_privileged: true
 provision_docker_ip: "127.0.0.1"
@@ -8,5 +9,6 @@ provision_docker_use_tls: "encrypt"
 provision_docker_state: "reloaded"
 provision_docker_inventory: []
 provision_docker_inventory_group: []
+provision_docker_kubernetes: []
 provision_docker_groups:
   - 'docker_containers'
