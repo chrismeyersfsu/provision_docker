@@ -5,6 +5,7 @@ metadata:
   namespace: "default"
   labels:
     name: "{{ item }}"
+    provision_docker: "true"
 spec:
   containers:
     - name: "test-default"
@@ -15,6 +16,9 @@ spec:
         - containerPort: 443
         - containerPort: 8080
         - containerPort: 5432
+      resources:
+        requests:
+          cpu: "125m"
       # TODO: If privileged
       securityContext:
         privileged: true

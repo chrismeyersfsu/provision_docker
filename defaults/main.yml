@@ -9,6 +9,6 @@ provision_docker_use_tls: "encrypt"
 provision_docker_state: "reloaded"
 provision_docker_inventory: []
 provision_docker_inventory_group: []
-provision_docker_kubernetes: []
+provision_docker_use_kubernetes: false
 provision_docker_groups:
   - 'docker_containers'

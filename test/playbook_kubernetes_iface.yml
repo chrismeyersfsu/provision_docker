@@ -3,7 +3,8 @@
   hosts: localhost
   roles:
     - role: provision_docker
-      provision_docker_kubernetes: "{{ groups['autobots'] }}"
+      provision_docker_inventory_group: "{{ groups['autobots'] }}"
+      provision_docker_use_kubernetes: true
 
 - name: Run Tests
   hosts: autobots

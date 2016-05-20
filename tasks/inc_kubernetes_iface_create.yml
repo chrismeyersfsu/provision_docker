@@ -1,0 +1,19 @@
+---
+- name: "Create tmp file"
+  shell: mktemp
+  register: mktemp
+
+- name: Lay down pod description
+  local_action:
+    module: template
+    src: pod.yml.j2
+    dest: "{{ mktemp.stdout }}"
+
+- name: Bring up pod host
+  local_action:
+    module: "shell kubectl create --filename={{ mktemp.stdout }}"
+
+- name: Expose public ip of pod
+  local_action:
+    module: 'shell kubectl expose pods {{ item }} --type="LoadBalancer" --labels="provision_docker=true"'
+

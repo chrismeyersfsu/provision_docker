@@ -1,15 +1,28 @@
-- include: "inc_kubernetes_iface_pod.yml"
-  with_items: "{{ provision_docker_kubernetes }}"
+- name: "Delete pods and services"
+  include: "inc_kubernetes_iface_delete.yml"
+  with_items: "{{ provision_docker_inventory_group }}"
+
+- name: "Wait for deletion of pods and services"
+  include: "inc_kubernetes_iface_delete_wait.yml"
+  with_items: "{{ provision_docker_inventory_group }}"
+
+- name: "Bring up pods and sercices"
+  include: "inc_kubernetes_iface_create.yml"
+  with_items: "{{ provision_docker_inventory_group }}"
+
+- name: "Wait for creation of services"
+  include: "inc_kubernetes_iface_create_wait.yml"
+  with_items: "{{ provision_docker_inventory_group }}"
 
 - name: Wait for ssh
   wait_for:
     host: "{{ hostvars[item]['ansible_ssh_host'] }}"
     port: 22
-    timeout: 30
-  with_items: "{{ provision_docker_kubernetes }}"
+    timeout: 60
+  with_items: "{{ provision_docker_inventory_group }}"
 
 - name: Make sure ssh is really up
   ping:
   delegate_to: "{{ item }}"
-  with_items: "{{ provision_docker_kubernetes }}"
+  with_items: "{{ provision_docker_inventory_group }}"
 
