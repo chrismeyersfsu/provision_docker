@@ -6,7 +6,8 @@
     privileged: "{{ provision_docker_privileged }}"
     state: "{{ provision_docker_state }}"
     use_tls: "{{ provision_docker_use_tls }}"
-    stop_timeout: 120
+    stop_timeout: 10
+    timeout: 120
     expose:
       - "1-65535"
   with_items: "{{ provision_docker_inventory }}"
