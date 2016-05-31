@@ -36,8 +36,8 @@ install:
   - gcloud config set project stoked-archway-645
   - gcloud container clusters get-credentials tower-test-kubernetes-cluster
   # Cleanup
-  - kubectl delete services optimus ironhide megatron starscream
-  - kubectl delete pods optimus ironhide megatron starscream
+  - kubectl delete services optimus ironhide megatron starscream || true
+  - kubectl delete pods optimus ironhide megatron starscream || true
 
 script:
   - ansible-playbook -i test/inventory test/main.yml --syntax-check
