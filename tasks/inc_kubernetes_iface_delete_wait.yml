@@ -1,0 +1,19 @@
+---
+- name: Ensure old service has been deleted
+  local_action:
+    module: "shell kubectl delete service {{ item }}"
+  failed_when: False
+  register: result_service_deleted
+  until: "result_service_deleted.rc == 1"
+  retries: 30
+  delay: 10
+
+- name: Ensure old pod has been deleted
+  local_action:
+    module: "shell kubectl delete pod {{ item }} --grace-period=1"
+  failed_when: False
+  register: result_pod_deleted
+  until: "result_pod_deleted.rc == 1"
+  retries: 30
+  delay: 10
+
