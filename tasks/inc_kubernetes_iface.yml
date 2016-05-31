@@ -18,7 +18,8 @@
   wait_for:
     host: "{{ hostvars[item]['ansible_ssh_host'] }}"
     port: 22
-    timeout: 60
+    timeout: 120
+    connect_timeout: 120
   with_items: "{{ provision_docker_inventory_group }}"
 
 - name: Make sure ssh is really up
