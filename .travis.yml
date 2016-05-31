@@ -42,3 +42,8 @@ script:
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+
+after_script:
+  - kubectl delete services optimus ironhide megatron starscream
+  - kubectl delete pods optimus ironhide megatron starscream
+
