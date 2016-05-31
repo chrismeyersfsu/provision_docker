@@ -35,6 +35,9 @@ install:
   - gcloud auth activate-service-account --key-file .gce_auth.json
   - gcloud config set project stoked-archway-645
   - gcloud container clusters get-credentials tower-test-kubernetes-cluster
+  # Cleanup
+  - kubectl delete services optimus ironhide megatron starscream
+  - kubectl delete pods optimus ironhide megatron starscream
 
 script:
   - ansible-playbook -i test/inventory test/main.yml --syntax-check
@@ -44,6 +47,7 @@ notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
 
 after_script:
+  # Cleanup
   - kubectl delete services optimus ironhide megatron starscream
   - kubectl delete pods optimus ironhide megatron starscream
 
