@@ -1,15 +1,9 @@
-- name: Bring up inventory group of hosts
-  local_action: 
-    module: docker
-    # TODO: |default(random_hostname)
-    name: "{{ item }}"
-    image: "{{ hostvars[item].image|default(provision_docker_image_default) }}"
-    privileged: "{{ hostvars[item].privileged|default(provision_docker_privileged) | bool}}"
-    state: "{{ hostvars[item].provision_docker_state | default(provision_docker_state) }}"
-    use_tls: "{{ provision_docker_use_tls }}"
-    stop_timeout: 120
-    expose:
-      - "1-65535"
+- name: Stop and rm containers
+  local_action: "shell docker rm --force {{ item }} || true"
+  with_items: "{{ provision_docker_inventory_group }}"
+
+- name: Bring up containers
+  local_action: "shell docker run -d --name={{ item }} --privileged --expose=1-65535 {{ hostvars[item].image|default(provision_docker_image_default) }}"
   with_items: "{{ provision_docker_inventory_group }}"
 
 - name: Get IP of container

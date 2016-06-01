@@ -1,14 +1,9 @@
-- name: Bring up list of hosts
-  local_action: 
-    module: docker
-    name: "{{ item['name'] }}"
-    image: "{{ item.image|default(provision_docker_image_default) }}"
-    privileged: "{{ provision_docker_privileged }}"
-    state: "{{ provision_docker_state }}"
-    use_tls: "{{ provision_docker_use_tls }}"
-    stop_timeout: 120
-    expose:
-      - "1-65535"
+- name: Stop and rm containers
+  local_action: "shell docker rm --force {{ item['name'] }} || true"
+  with_items: "{{ provision_docker_inventory }}"
+
+- name: Bring up containers
+  local_action: "shell docker run -d --name={{ item['name'] }} --privileged --expose=1-65535 {{ item.image|default(provision_docker_image_default) }}"
   with_items: "{{ provision_docker_inventory }}"
 
 # Note: We had to move the invocation of the docker inspect command into a bash
