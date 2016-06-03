@@ -44,6 +44,7 @@
     host: "{{ hostvars[item.name]['ansible_ssh_host'] }}"
     port: 22
     timeout: 30
+    connect_timeout: 30
   with_items: "{{ provision_docker_inventory }}"
 
 - name: Make sure ssh is really up
