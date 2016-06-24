@@ -1,14 +1,20 @@
 ---
-- name: ensure docker repo is present
+- name: ensure repo is present
   copy: src=files/docker.repo dest=/etc/yum.repos.d/docker.repo
   when: not docker_rc
 
-- name: ensure docker testing repo is present
+- name: ensure testing repo is present
   copy: src=files/docker-testing.repo dest=/etc/yum.repos.d/docker-testing.repo
   when: docker_rc
 
 - name: ensure docker is installed
   yum: name=docker-engine state=present
+
+- name: ensure config folder is present
+  file: path=/etc/docker state=directory
+
+- name: ensure daemon config file is present
+  template: src=daemon.j2.json dest=/etc/docker/daemon.json
 
 - name: ensure unit file is present & up to date
   copy: src=files/docker.service dest=/usr/lib/systemd/system/docker.service

@@ -1,0 +1,6 @@
+{
+{% if clusterstore %}
+  "cluster-store": "consul://{{ consul_ip }}:8500",
+{% endif %}
+  "log-level": "info"
+}

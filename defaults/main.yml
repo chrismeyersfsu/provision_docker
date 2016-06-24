@@ -1,2 +1,4 @@
 ---
-# defaults file for docker
+docker_rc: no
+clusterstore: no
+consul_ip: 127.0.0.1
