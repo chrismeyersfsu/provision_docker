@@ -1,0 +1,5 @@
+# Ignore Vagrant cache files
+/.vagrant/
+
+# Ignore retry files
+*.retry
