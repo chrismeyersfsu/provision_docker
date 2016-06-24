@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mongrelion/ansible-role-docker.svg?branch=master)](https://travis-ci.org/mongrelion/ansible-role-docker)
+
 docker
 =========
 
