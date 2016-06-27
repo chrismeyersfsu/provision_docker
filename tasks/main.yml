@@ -15,6 +15,8 @@
 
 - name: ensure daemon config file is present
   template: src=daemon.j2.json dest=/etc/docker/daemon.json
+  notify:
+    - restart docker
 
 - name: ensure unit file is present & up to date
   copy: src=files/docker.service dest=/usr/lib/systemd/system/docker.service
