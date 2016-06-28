@@ -3,7 +3,7 @@
   become: yes
   become_user: root
   vars:
-    - clusterstore: yes
+    docker_clusterstore: yes
   roles:
     - ../docker
   tasks:
