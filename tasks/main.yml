@@ -24,6 +24,8 @@
     - reload unit
     - restart docker
 
+- meta: flush_handlers
+
 - name: ensure starts on system boot
   service: name=docker enabled=yes
 
