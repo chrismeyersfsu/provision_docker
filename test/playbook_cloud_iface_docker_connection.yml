@@ -1,0 +1,22 @@
+---
+- name: Bring up docker containers
+  hosts: localhost
+  vars:
+    inventory:
+      - name: provision_docker_host_docker_conn
+        image: "turkenh/docker-ubuntu1404-ansible-host"
+  roles:
+    - { role: provision_docker, provision_docker_inventory: "{{ inventory }}", provision_docker_use_docker_connection: true }
+
+- name: Run Tests
+  hosts: docker_containers
+  vars:
+    file: '/tmp/my_host'
+  roles:
+    # Role under test
+    - { role: test_add_file, test_add_file_path: "{{ file }}"  }
+  tasks:
+    # Verify role behavior
+    - name: Ensure provision_docker_host_docker_conn file contents
+      shell: 'echo "I am a self aware host and my name is provision_docker_docker_conn." > /tmp/compare && cmp {{ file }} /tmp/compare'
+      when: inventory_hostname == "provision_docker_docker_conn"
