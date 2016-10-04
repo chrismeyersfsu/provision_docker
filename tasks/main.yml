@@ -5,15 +5,9 @@
   fail: msg="provision_docker_inventory_group or provision_docker_inventory is required"
   when: "provision_docker_inventory_group is not defined and provision_docker_inventory is not defined"
 
-- name: "Bring up hosts in Docker based on inventory file"
-  include: inc_inventory_iface.yml
-  when: "{{ provision_docker_inventory_group | length }} > 0 and provision_docker_use_kubernetes == false"
+- include: inc_inventory_iface.yml
+  when: "{{ provision_docker_inventory_group | length }} > 0"
 
-- name: "Bring up hosts in Docker based on cloud like interface"
-  include: inc_cloud_iface.yml
+- include: inc_cloud_iface.yml
   when: "{{ provision_docker_inventory | length }} > 0"
-
-- name: "Bring up hosts in Kubernetes based on inventory file"
-  include: inc_kubernetes_iface.yml
-  when: "{{ provision_docker_inventory_group | length }} > 0 and {{ provision_docker_use_kubernetes }} == true"
 

@@ -10,7 +10,6 @@ env:
     - PATH="/usr/bin:$PATH"
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_163079534ea5_key -iv $encrypted_163079534ea5_iv -in .gce_auth.json.enc -out .gce_auth.json -d
     # Ansible doesn't play well with virtualenv
   - deactivate
   - sudo apt-get update -qq
@@ -26,18 +25,6 @@ install:
   - sudo apt-get install -y ansible
   - sudo rm /usr/bin/python && sudo ln -s /usr/bin/python2.7 /usr/bin/python
   - ansible --version
-  - curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-111.0.0-linux-x86_64.tar.gz
-  - tar -xf google-*.tar.gz
-  - google-cloud-sdk/install.sh -q
-  - source ~/.bashrc
-  - gcloud config set compute/zone us-east1-b
-  - gcloud components install kubectl -q
-  - gcloud auth activate-service-account --key-file .gce_auth.json
-  - gcloud config set project stoked-archway-645
-  - gcloud container clusters get-credentials tower-test-kubernetes-cluster
-  # Cleanup
-  - kubectl delete services optimus ironhide megatron starscream || true
-  - kubectl delete pods optimus ironhide megatron starscream || true
 
 script:
   - ansible-playbook -i test/inventory test/main.yml --syntax-check
@@ -45,9 +32,3 @@ script:
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
-
-after_script:
-  # Cleanup
-  - kubectl delete services optimus ironhide megatron starscream
-  - kubectl delete pods optimus ironhide megatron starscream
-
