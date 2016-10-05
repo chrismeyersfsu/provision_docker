@@ -67,3 +67,4 @@ The route does not persist across reboots. To persist the changes edit `/Library
 * http://www.jeffgeerling.com/blog/testing-ansible-roles-travis-ci-github
 * https://github.com/geerlingguy/ansible-role-apache
 * https://github.com/neillturner/kitchen-ansible
+* https://github.com/goodplay/goodplay
