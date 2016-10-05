@@ -8,7 +8,6 @@ all: main groups
 main:
 	docker stop $(containers) || true
 	ansible-playbook -i inventory main.yml
-
 groups:
 	docker stop $(containers) || true
 	ansible-playbook -i inventory groups.yml
