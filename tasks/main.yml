@@ -28,13 +28,13 @@
   notify:
     - restart docker
 
-- name: ensure unit file is present & up to date
-  copy:
-    src: docker.service
-    dest: /usr/lib/systemd/system/docker.service
-  notify:
-    - reload unit
-    - restart docker
+# - name: ensure unit file is present & up to date
+#   copy:
+#     src: docker.service
+#     dest: /usr/lib/systemd/system/docker.service
+#   notify:
+#     - reload unit
+#     - restart docker
 
 - meta: flush_handlers
 
