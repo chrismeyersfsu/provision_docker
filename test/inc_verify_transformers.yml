@@ -1,0 +1,19 @@
+- name: Ensure optimus file contents
+  shell: 'echo "I am a self aware host and my name is optimus." > /tmp/compare && cmp {{ file }} /tmp/compare'
+  run_once: true
+  delegate_to: "optimus"
+
+- name: Ensure ironhide file contents
+  shell: 'echo "I am a self aware host and my name is ironhide." > /tmp/compare && cmp {{ file }} /tmp/compare'
+  run_once: true
+  delegate_to: "ironhide"
+
+- name: Ensure megatron file contents
+  shell: 'echo "I am a self aware host and my name is megatron." > /tmp/compare && cmp {{ file }} /tmp/compare'
+  run_once: true
+  delegate_to: "megatron"
+
+- name: Ensure starscream file contents
+  shell: 'echo "I am a self aware host and my name is starscream." > /tmp/compare && cmp {{ file }} /tmp/compare'
+  run_once: true
+  delegate_to: "starscream"

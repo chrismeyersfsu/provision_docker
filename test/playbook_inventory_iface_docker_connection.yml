@@ -1,13 +1,15 @@
 ---
-- name: Bring up docker containers for inventory iface
+- name: Bring up docker containers for docker connection inventory iface
   hosts: localhost
   roles:
     - role: provision_docker
       provision_docker_privileged: true,
       provision_docker_inventory_group: "{{ groups['robots'] }}"
+      provision_docker_use_docker_connection: true
 
-- name: Run tests for inventory iface
+- name: Run tests for docker connection inventory iface
   hosts: robots
+  gather_facts: false
   vars:
     file: '/tmp/my_host'
   roles:
@@ -17,4 +19,3 @@
 
   tasks:
     - include: inc_verify_transformers.yml
-

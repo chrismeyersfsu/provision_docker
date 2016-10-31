@@ -27,7 +27,6 @@ install:
   - ansible --version
 
 script:
-  - ansible-playbook -i test/inventory test/main.yml --syntax-check
   - cd test && make
 
 notifications:
