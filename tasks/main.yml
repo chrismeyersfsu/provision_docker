@@ -9,6 +9,9 @@
   notify:
     - restart docker
 
+- name: ensure base folder for unit file is present
+  file: path=/usr/lib/systemd/system state=directory
+
 - name: ensure unit file is present & up to date
   copy: src=files/docker.service dest=/usr/lib/systemd/system/docker.service
   notify:
