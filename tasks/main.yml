@@ -1,9 +1,5 @@
 ---
-- name: ensure repo is present
-  copy: src=files/docker.repo dest=/etc/yum.repos.d/docker.repo
-
-- name: ensure docker is installed
-  yum: name=docker-engine state=present
+- include: "os/{{ ansible_os_family }}.yml"
 
 - name: ensure config folder is present
   file: path=/etc/docker state=directory
