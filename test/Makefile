@@ -1,13 +1,28 @@
-.PHONY: main groups
+.PHONY: cloud inventory docker_inventory docker_cloud groups clean
 
-containers = provision_docker_host_one provision_docker_host_two provision_docker_host_three provision_docker_host_four optimus ironhide megatron starscream \
-provision_docker_host_docker_conn_one provision_docker_host_docker_conn_two provision_docker_host_docker_conn_three provision_docker_host_docker_conn_four provision_docker_host_five
+containers = provision_docker_host_one provision_docker_host_two provision_docker_host_three provision_docker_host_four provision_docker_host_five optimus ironhide megatron starscream
 
-all: main groups
+all: cloud inventory docker_inventory docker_cloud groups
 
-main:
-	docker stop $(containers) || true
-	ansible-playbook -i inventory main.yml
+cloud:
+	docker rm -f $(containers) || true
+	ansible-playbook -i inventory playbook_cloud_iface.yml
+
+inventory:
+	docker rm -f $(containers) || true
+	ansible-playbook -i inventory playbook_inventory_iface.yml
+
+docker_inventory:
+	docker rm -f $(containers) || true
+	ansible-playbook -i inventory playbook_inventory_iface_docker_connection.yml
+
+docker_cloud:
+	docker rm -f $(containers) || true
+	ansible-playbook -i inventory playbook_cloud_iface_docker_connection.yml
+
 groups:
-	docker stop $(containers) || true
+	docker rm -f $(containers) || true
 	ansible-playbook -i inventory groups.yml
+
+clean:
+	docker rm -f $(containers) || true

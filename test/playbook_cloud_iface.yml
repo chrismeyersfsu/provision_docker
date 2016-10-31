@@ -1,5 +1,5 @@
 ---
-- name: Bring up docker containers
+- name: Bring up docker cloud iface containers
   hosts: localhost
   vars:
     inventory:
@@ -13,7 +13,7 @@
   roles:
     - { role: provision_docker, provision_docker_privileged: "{{ true }}", provision_docker_inventory: "{{ inventory }}" }
 
-- name: Run Tests
+- name: Run tests for cloud iface
   hosts: docker_containers
   vars:
     file: '/tmp/my_host'
@@ -21,19 +21,5 @@
     # Role under test
     - { role: test_add_file, test_add_file_path: "{{ file }}"  }
   tasks:
-    # Verify role behavior
-    - name: Ensure provision_docker_host_one file contents
-      shell: 'echo "I am a self aware host and my name is provision_docker_host_one." > /tmp/compare && cmp {{ file }} /tmp/compare'
-      when: inventory_hostname == "provision_docker_host_one"
+    - include: "inc_verify_hosts.yml"
 
-    - name: Ensure provision_docker_host_two file contents
-      shell: 'echo "I am a self aware host and my name is provision_docker_host_two." > /tmp/compare && cmp {{ file }} /tmp/compare'
-      when: inventory_hostname == "provision_docker_host_two"
-
-    - name: Ensure provision_docker_host_three file contents
-      shell: 'echo "I am a self aware host and my name is provision_docker_host_three." > /tmp/compare && cmp {{ file }} /tmp/compare'
-      when: inventory_hostname == "provision_docker_host_three"
-    
-    - name: Ensure provision_docker_host_four file contents
-      shell: 'echo "I am a self aware host and my name is provision_docker_host_four." > /tmp/compare && cmp {{ file }} /tmp/compare'
-      when: inventory_hostname == "provision_docker_host_four"

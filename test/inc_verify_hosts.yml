@@ -1,0 +1,19 @@
+- name: Ensure provision_docker_host_one file contents
+  shell: 'echo "I am a self aware host and my name is provision_docker_host_one." > /tmp/compare && cmp {{ file }} /tmp/compare'
+  delegate_to: "provision_docker_host_one"
+  run_once: true
+
+- name: Ensure provision_docker_host_two file contents
+  shell: 'echo "I am a self aware host and my name is provision_docker_host_two." > /tmp/compare && cmp {{ file }} /tmp/compare'
+  delegate_to: "provision_docker_host_two"
+  run_once: true
+
+- name: Ensure provision_docker_host_three file contents
+  shell: 'echo "I am a self aware host and my name is provision_docker_host_three." > /tmp/compare && cmp {{ file }} /tmp/compare'
+  delegate_to: "provision_docker_host_three"
+  run_once: true
+
+- name: Ensure provision_docker_host_four file contents
+  shell: 'echo "I am a self aware host and my name is provision_docker_host_four." > /tmp/compare && cmp {{ file }} /tmp/compare'
+  delegate_to: "provision_docker_host_four"
+  run_once: true
