@@ -4,6 +4,10 @@
 - name: ensure config folder is present
   file: path=/etc/docker state=directory
 
+- name: ensure docker-py module is installed
+  pip: name=docker-py version=1.9.0
+  when: dockerpy
+
 - name: ensure daemon config file is present
   template: src=daemon.j2.json dest=/etc/docker/daemon.json
   notify:
