@@ -3,7 +3,8 @@
 
 # provision_docker
 An Ansible role to help you test your roles. Automagically create docker containers for each of your inventory hosts. Use your production inventory file to create docker containers for development and test.
-<center><img src="https://i.imgflip.com/1dbjhv.jpg"></center>
+
+<img align="center" src="https://i.imgflip.com/1dbjhv.jpg" alt="blah">
 
 | Resource                                                                                  | Description                                                                                                                                                                                                                                                                                                                   |
 |-------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
