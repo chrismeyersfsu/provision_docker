@@ -79,3 +79,28 @@ The route does not persist across reboots. To persist the changes edit `/Library
 * http://www.jeffgeerling.com/blog/testing-ansible-roles-travis-ci-github
 * https://github.com/geerlingguy/ansible-role-apache
 * https://github.com/neillturner/kitchen-ansible
+
+## Projects Using provision_docker
+
+* https://github.com/mbreisch/ssh-role
+* https://github.com/mbreisch/ufw-role
+* https://github.com/mbreisch/ssmtp-role
+* https://github.com/mbreisch/deploy-user-role
+* https://github.com/mbreisch/s3cmd-role
+* https://github.com/mbreisch/unattended-upgrades-role/tree/master/tests
+* https://github.com/Maarc/ansible-role-redhat-jboss-common
+* https://github.com/sderen/ansible-grafana
+* https://github.com/sderen/ansible-nginxgunicorn
+* https://github.com/Maarc/ansible-role-redhat-jboss-web-server-httpd
+* https://github.com/Maarc/ansible-role-redhat-jboss-web-server-tomcat
+* https://github.com/Maarc/ansible-role-redhat-jboss-eap
+* https://github.com/rhtconsulting/jboss_fuse
+* https://github.com/rhtconsulting/jboss_bxms
+* https://github.com/mlanin/ansible-laravel5/tree/master/roles/carlosbuenosvinos.ansistrano-deploy
+* https://github.com/Maarc/ansible-role-redhat-jboss-common
+* https://github.com/turkenh/ansible-role-parse-mongodb
+* https://github.com/tomashavlas/ansible-role-users_profiles
+* https://github.com/tomashavlas/ansible-role-system_users
+* https://github.com/tomashavlas/ansible-role-authorized_keys
+* https://github.com/tomashavlas/ansible-role-sudo
+* https://github.com/tomashavlas/ansible-role-system_groups
