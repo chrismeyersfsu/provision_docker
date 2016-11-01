@@ -30,6 +30,11 @@ bumblebee image="ubuntu-upstart:14.04"
       provision_docker_privileged: true,
       provision_docker_inventory_group: "{{ groups['robots'] }}"
       provision_docker_use_docker_connection: true
+      
+- hosts: robots
+  tasks:
+    - name: "Say hello to my new containers"
+      ping:
 ```
 
 ### Mac OS X + docker-machine + VMware Fusion
