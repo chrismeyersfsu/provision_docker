@@ -18,8 +18,8 @@ Works with docker for Mac, VirtualBox, VMware Fusion, docker native. Using docke
 ```
 # inventory
 [robots]
-optimus
-bumblebee
+optimus image="chrismeyers/ubuntu12.04"
+bumblebee image="ubuntu-upstart:14.04"
 ```
 ```
 # test.yml
