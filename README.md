@@ -21,7 +21,7 @@ Works with docker for Mac, VirtualBox, VMware Fusion, docker native. Using docke
 optimus image="chrismeyers/ubuntu12.04"
 bumblebee image="ubuntu-upstart:14.04"
 ```
-```
+```yaml
 # test.yml
 - name: Bring up docker containers for docker connection inventory iface
   hosts: localhost
