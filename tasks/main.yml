@@ -49,3 +49,7 @@
 #     name: vagrant
 #     groups: docker
 #     append: yes
+- name: ensure that docker group is available
+  group:
+    name: docker
+    state: present
