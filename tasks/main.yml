@@ -2,10 +2,14 @@
 - include: "os/{{ ansible_os_family }}.yml"
 
 - name: ensure config folder is present
-  file: path=/etc/docker state=directory
+  file:
+    path: /etc/docker
+    state: directory
 
 - name: ensure docker-py module is installed
-  pip: name=docker-py version=1.9.0
+  pip:
+    name: docker-py
+    version: 1.9.0
   when: dockerpy
 
 - name: ensure daemon config file is present
@@ -15,18 +19,24 @@
   notify:
     - restart docker
 
-# - name: ensure unit file is present & up to date
-#   copy:
-#     src: docker.service
-#     dest: /usr/lib/systemd/system/docker.service
-#   notify:
-#     - reload unit
-#     - restart docker
+- name: ensure unit file is present & up to date
+  copy:
+    src: docker.service
+    dest: /usr/lib/systemd/system/docker.service
+  notify:
+    - reload unit
+    - restart docker
 
 - meta: flush_handlers
 
 - name: ensure starts on system boot
-  service: name=docker enabled=yes
+  service:
+    name: docker
+    enabled: yes
 
 - name: ensure vagrant user can run docker commands
-  user: name=vagrant groups=docker append=yes
+  user:
+    name: vagrant
+    groups: docker
+    append: yes
+  when: vagrant

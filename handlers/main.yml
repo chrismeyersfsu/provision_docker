@@ -1,5 +1,6 @@
 ---
 - name: reload unit
+  become: true
   command: systemctl daemon-reload
 
 - name: restart docker
