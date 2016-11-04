@@ -13,10 +13,7 @@ None
 Role Variables
 --------------
 
-```
-- vars:
-  docker_rc: no # no by default. Set to yes to install the latest Docker version (release candidates and such)
-```
+None
 
 Dependencies
 ------------
@@ -25,18 +22,27 @@ None
 
 Example Playbook
 ----------------
-Install vanilla Docker
+Install Docker
 ```
 - hosts: servers
   roles:
      - mongrelion.docker
 ```
 
-Install testing release of Docker
+Testing
+-------
+For development, we use Vagrant.
+Bring the VM up with
+
 ```
-- hosts: servers
-  roles:
-     - { role: mongrelion.docker, docker_rc: yes }
+$ vagrant up
+```
+
+This will automatically run the playbooks against the virtual machine once it's up.  
+After making changes to any playbook, you can test the provisioning with
+
+```
+$ vagrant provision
 ```
 
 License

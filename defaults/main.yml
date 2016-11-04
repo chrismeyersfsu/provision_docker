@@ -1,4 +1,4 @@
 ---
-docker_rc: no
-docker_clusterstore: no
 consul_ip: 127.0.0.1
+docker_clusterstore: no
+dockerpy: no
