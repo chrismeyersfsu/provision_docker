@@ -45,8 +45,8 @@
     wait_for:
       host: "{{ hostvars[item.name]['ansible_ssh_host'] }}"
       port: 22
-      timeout: 30
-      connect_timeout: 30
+      timeout: 60
+      connect_timeout: 5
     with_items: "{{ provision_docker_inventory }}"
   when: not provision_docker_use_docker_connection
 
