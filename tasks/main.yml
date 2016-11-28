@@ -19,6 +19,11 @@
   notify:
     - restart docker
 
+- name: ensure unit file folder is present
+  file:
+    path: /usr/lib/systemd/system
+    state: directory
+
 - name: ensure unit file is present & up to date
   copy:
     src: docker.service
