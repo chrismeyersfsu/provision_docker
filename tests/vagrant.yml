@@ -4,6 +4,7 @@
   become_user: root
   vars:
     docker_clusterstore: yes
+    vagrant: yes
   roles:
     - ../docker
   tasks:
