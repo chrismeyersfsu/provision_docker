@@ -11,6 +11,9 @@ galaxy_info:
   - name: Debian
     versions:
       - jessie
+  - name: Ubuntu
+    versions:
+      - xenial
   galaxy_tags:
     - docker
     - swarm
