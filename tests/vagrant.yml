@@ -11,7 +11,14 @@
     - name: check consul state
       command: docker ps -q -f name=consul
       register: consulcheck
+      changed_when: no
 
     - name: ensure consul is running
-      command: docker run -d --name consul -p "8500:8500" progrium/consul -server -bootstrap
+      command: >
+        docker run       \
+        -d               \
+        --name consul    \
+        -p "8500:8500"   \
+        --restart always \
+        progrium/consul -server -bootstrap
       when: consulcheck.stdout_lines | length == 0
