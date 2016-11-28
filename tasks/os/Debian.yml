@@ -14,7 +14,7 @@
 
 - name: ensure repo is present
   copy:
-    src: docker.apt.repo
+    src: "repos/{{ ansible_distribution }}-{{ ansible_distribution_version }}"
     dest: /etc/apt/sources.list.d/docker.list
   register: repofile
 

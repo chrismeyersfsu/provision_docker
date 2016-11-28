@@ -1,7 +1,7 @@
 ---
 - name: ensure repo is present
   copy:
-    src: docker.yum.repo
+    src: repos/Centos-7
     dest: /etc/yum.repos.d/docker.repo
 
 - name: ensure docker is installed
