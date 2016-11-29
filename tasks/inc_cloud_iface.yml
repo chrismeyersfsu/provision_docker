@@ -1,11 +1,12 @@
 - name: Bring up list of hosts
   local_action: 
-    module: docker
+    module: docker_container
     name: "{{ item['name'] }}"
     image: "{{ item.image|default(provision_docker_image_default) }}"
     privileged: "{{ provision_docker_privileged }}"
     state: "{{ provision_docker_state }}"
-    use_tls: "{{ provision_docker_use_tls }}"
+    restart: yes
+    tls: "{{ provision_docker_use_tls }}"
     stop_timeout: 120
     tty: "{{provision_docker_use_docker_connection | bool}}"
     expose:
