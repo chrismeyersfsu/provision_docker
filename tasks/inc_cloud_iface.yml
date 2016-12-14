@@ -7,7 +7,7 @@
     state: "{{ provision_docker_state }}"
     restart: yes
     tls: "{{ provision_docker_use_tls }}"
-    stop_timeout: 120
+    stop_timeout: 1
     tty: "{{provision_docker_use_docker_connection | bool}}"
     expose:
       - "1-65535"
