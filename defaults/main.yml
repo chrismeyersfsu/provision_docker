@@ -10,4 +10,4 @@ provision_docker_inventory: []
 provision_docker_inventory_group: []
 provision_docker_groups:
   - 'docker_containers'
-provision_docker_use_docker_connection: false
+provision_docker_use_docker_connection: true
