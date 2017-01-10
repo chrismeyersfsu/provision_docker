@@ -66,4 +66,3 @@
       changed_when: false
   when: provision_docker_use_docker_connection
 
-

@@ -71,3 +71,4 @@
   raw: echo Hello
   delegate_to: "{{ item['name'] }}"
   with_items: "{{ provision_docker_inventory }}"
+  changed_when: false
