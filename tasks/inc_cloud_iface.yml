@@ -5,7 +5,7 @@
     image: "{{ item.image|default(provision_docker_image_default) }}"
     privileged: "{{ provision_docker_privileged }}"
     state: "{{ provision_docker_state }}"
-    restart: yes
+    restart: "{{ item.restart|default(yes) }}"
     tls: "{{ provision_docker_use_tls }}"
     stop_timeout: 1
     tty: "{{provision_docker_use_docker_connection | bool}}"
