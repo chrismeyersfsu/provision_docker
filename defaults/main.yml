@@ -3,3 +3,4 @@ consul_ip: 127.0.0.1
 docker_clusterstore: no
 dockerpy: no
 vagrant: no
+docker_storagedriver: devicemapper
