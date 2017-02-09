@@ -16,13 +16,9 @@
   copy:
     src: "repos/{{ ansible_distribution }}-{{ ansible_distribution_version }}"
     dest: /etc/apt/sources.list.d/docker.list
-  register: repofile
-
-- name: ensure apt cache is updated
-  apt:
-    update_cache: yes
 
 - name: ensure docker is installed
   apt:
     name: docker-engine
     state: present
+    update_cache: yes
