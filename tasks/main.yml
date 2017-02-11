@@ -25,8 +25,8 @@
     state: directory
 
 - name: ensure unit file is present & up to date
-  copy:
-    src: docker.service
+  template:
+    src: docker.j2.service
     dest: /usr/lib/systemd/system/docker.service
   notify:
     - reload unit
