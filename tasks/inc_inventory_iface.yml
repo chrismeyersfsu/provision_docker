@@ -18,13 +18,11 @@
 
 - name: Get IP of container
   local_action:
-    module: "shell"
-    args: "{{ role_path }}/files/docker_inspect.sh {{ item }}"
+    module: "command"
+    args: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory_group }}"
   changed_when: false
-
-- debug: msg="{{provision_docker_ip}}"
 
 - block:
     - name: "Associate ip address with hosts"

@@ -17,22 +17,13 @@
 
 - name: Get IP of container
   local_action:
-    module: "shell"
-    args: "{{ role_path }}/files/docker_inspect.sh {{ item.name }}"
+    module: "command"
+    args: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item.name }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory }}"
   changed_when: false
 
 - block:
-  # Note: We had to move the invocation of the docker inspect command into a bash
-  # script because it involces a command line parameter with {{ }}. Registering
-  # the results puts the command line params into invocation. Referencing the
-  # results variable fails because Ansible runs the invocation through jinja2
-  # template engine and the {{.NetworkSettings.IPAddress}} variable does not
-  # exist
-  # TODO: Check if no results (i.e. results.stdout_lines length) returned from
-  # docker_inspect.sh
-
   # TODO: copy ALL host vars in the inventory
   - name: "Associate ip address with hosts"
     local_action:
