@@ -1,3 +1,7 @@
+- debug:
+    var: provision_docker_inventory
+    verbosity: 2
+
 - name: Bring up list of hosts
   local_action: 
     module: docker_container
@@ -13,15 +17,24 @@
     command: "{{ item.command|default(omit) }}"
     env: "{{ item.env|default(omit) }}"
     links: "{{ item.inks|default(omit) }}"
+    volumes: "{{ item.volumes | default(omit) }}"
+
   with_items: "{{ provision_docker_inventory }}"
+  changed_when: false
 
 - name: Get IP of container
   local_action:
     module: "command"
-    args: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item.name }}"
+    # @TODO - Make a pull request for this
+    #args: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item.name }}"
+    args: "docker inspect --format '{''{ .NetworkSettings.IPAddress }''}' {{ item.name }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory }}"
   changed_when: false
+
+- debug:
+    var: provision_docker_ip
+    verbosity: 2
 
 - block:
   # TODO: copy ALL host vars in the inventory
@@ -45,6 +58,13 @@
     with_items: "{{ provision_docker_inventory }}"
   when: not provision_docker_use_docker_connection
 
+- debug:
+    var: provision_docker_inventory
+    verbosity: 2
+- debug:
+    var: provision_docker_groups
+    verbosity: 2
+
 # TODO: copy ALL host vars in the inventory
 - name: "Add docker hosts with connection docker"
   local_action:
@@ -52,7 +72,8 @@
     name: "{{ item.1['name'] }}"
     docker_ip: "{{ provision_docker_ip.results[item.0].stdout }}"
     ansible_connection: docker
-    ansible_user: root
+    #ansible_user: root
+    ansible_user: "{{ provision_docker_ansible_user }}" 
     groups: "{{ provision_docker_groups | union(item.1['groups']|default([])) | join(',') }}"
   with_indexed_items: "{{ provision_docker_inventory }}"
   changed_when: false

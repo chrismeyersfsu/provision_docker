@@ -1,3 +1,7 @@
+- debug:
+    var: provision_docker_inventory
+    verbosity: 2
+
 - name: Bring up inventory group of hosts
   local_action: 
     module: docker_container
@@ -19,10 +23,16 @@
 - name: Get IP of container
   local_action:
     module: "command"
-    args: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item }}"
+    #args: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item }}"
+    args: "docker inspect --format '{''{ .NetworkSettings.IPAddress }''}' {{ item }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory_group }}"
   changed_when: false
+
+- name: Check before IP association
+  debug:
+    var: provision_docker_inventory_group
+    verbosity: 2
 
 - block:
     - name: "Associate ip address with hosts"
@@ -58,9 +68,14 @@
         name: "{{ item.1 }}"
         docker_ip: "{{ provision_docker_ip.results[item.0].stdout }}"
         ansible_connection: docker
-        ansible_user: root
+        #ansible_user: root
+        ansible_user: "{{ provision_docker_ansible_user }}"
         groups: "{{ provision_docker_groups | union(item.1['groups']|default([])) | join(',') }}"
       with_indexed_items: "{{ provision_docker_inventory_group }}"
       changed_when: false
   when: provision_docker_use_docker_connection
 
+- name: Checking host_vars after provision
+  debug:
+    var: hostvars
+    verbosity: 2
