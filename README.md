@@ -30,7 +30,7 @@ bumblebee image="ubuntu-upstart:14.04"
       provision_docker_privileged: true,
       provision_docker_inventory_group: "{{ groups['robots'] }}"
       provision_docker_use_docker_connection: true
-      
+
 - hosts: robots
   tasks:
     - name: "Say hello to my new containers"
@@ -112,3 +112,5 @@ The route does not persist across reboots. To persist the changes edit `/Library
 * https://github.com/tomashavlas/ansible-role-authorized_keys
 * https://github.com/tomashavlas/ansible-role-sudo
 * https://github.com/tomashavlas/ansible-role-system_groups
+* https://github.com/rhevm-qe-automation/ovirt-ansible
+* https://github.com/rhevm-qe-automation/ansible-role-seal
