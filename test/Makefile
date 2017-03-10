@@ -2,7 +2,7 @@
 
 containers = provision_docker_host_one provision_docker_host_two provision_docker_host_three provision_docker_host_four provision_docker_host_five optimus ironhide megatron starscream
 
-all: cloud inventory docker_inventory docker_cloud groups
+all: cloud inventory docker_inventory docker_cloud groups network_mode
 
 cloud:
 	docker rm -f $(containers) || true
@@ -23,6 +23,10 @@ docker_cloud:
 groups:
 	docker rm -f $(containers) || true
 	ansible-playbook -i inventory groups.yml
+
+network_mode:
+	docker rm -f $(containers) || true
+	ansible-playbook -i inventory playbook_verify_network.yml
 
 clean:
 	docker rm -f $(containers) || true

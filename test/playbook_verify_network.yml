@@ -1,0 +1,30 @@
+- name: Bring up docker containers for network test cloud
+  hosts: localhost
+  vars:
+    inventory:
+      - name: provision_docker_host_one
+        image: "ubuntu-upstart:14.04"
+        network_mode: "host"
+  roles:
+    - role: provision_docker
+      provision_docker_inventory: "{{ inventory }}"
+
+- name: Bring up docker containers for inventory iface
+  hosts: localhost
+  vars:
+    provision_docker_network: "host"
+  roles:
+    - role: provision_docker
+      provision_docker_inventory_group: "{{ groups['decepticons'] }}"
+
+- name: Run tests for docker connection cloud
+  hosts: docker_containers:decepticons
+  tasks:
+    - name: Verify that network related file is in container
+      stat:
+        path: "/proc/sys/net/ipv4/tcp_tw_reuse"
+      register: st
+    - name: Fail when doesn't exist
+      fail:
+        msg: "/proc/sys/net/ipv4/tcp_tw_reuse"
+      when: not st.stat.exists
