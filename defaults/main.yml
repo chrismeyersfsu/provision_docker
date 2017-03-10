@@ -1,6 +1,7 @@
 ---
 provision_docker_image_default: "chrismeyers/centos6"
 provision_docker_privileged: true
+provision_docker_network: "bridge"
 provision_docker_ip: "127.0.0.1"
 provision_docker_ssh_user: "root"
 provision_docker_ssh_pass: "docker.io"

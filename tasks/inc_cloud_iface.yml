@@ -13,6 +13,7 @@
     command: "{{ item.command|default(omit) }}"
     env: "{{ item.env|default(omit) }}"
     links: "{{ item.inks|default(omit) }}"
+    network_mode: "{{ item.network_mode|default(provision_docker_network) }}"
   with_items: "{{ provision_docker_inventory }}"
 
 - name: Get IP of container
