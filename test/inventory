@@ -8,7 +8,7 @@ ironhide image="ubuntu-upstart:14.04"
 
 [decepticons]
 megatron image="chrismeyers/centos6"
-starscream image="chrismeyers/centos6"
+starscream image="chrismeyers/centos7"
 
 [robots:children]
 autobots
