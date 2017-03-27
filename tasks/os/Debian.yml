@@ -12,13 +12,16 @@
     id: "{{ docker_gpg_key }}"
     keyserver: "{{ key_server }}"
 
-- name: ensure repo is present
-  copy:
-    src: "repos/{{ ansible_distribution }}-{{ ansible_distribution_version }}"
-    dest: /etc/apt/sources.list.d/docker.list
+- name: ensure docker repo is present
+  apt_repository:
+    repo: deb https://apt.dockerproject.org/repo debian-jessie main
+    state: present
+    filename: docker
+    update_cache: true
 
 - name: ensure docker is installed
   apt:
     name: docker-engine
     state: present
-    update_cache: yes
+    update_cache: true
+    cache_valid_time: 3600
