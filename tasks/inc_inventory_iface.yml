@@ -18,7 +18,7 @@
     command: "{{ item.command|default(omit) }}"
     env: "{{ item.env|default(omit) }}"
     links: "{{ item.links|default(omit) }}"
-    published_ports: "{{ hostvars[item]['provision_docker_ports'] | default()}}"
+    published_ports: "{{ hostvars[item]['provision_docker_ports'] | default(omit)}}"
   with_items: "{{ provision_docker_inventory_group }}"
 
 - name: Get IP of container
