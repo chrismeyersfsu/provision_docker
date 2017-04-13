@@ -6,8 +6,8 @@
   when: "provision_docker_inventory_group is not defined and provision_docker_inventory is not defined"
 
 - include: inc_inventory_iface.yml
-  when: "{{ provision_docker_inventory_group | length }} > 0"
+  when: (provision_docker_inventory_group | length) > 0
 
 - include: inc_cloud_iface.yml
-  when: "{{ provision_docker_inventory | length }} > 0"
+  when: (provision_docker_inventory | length) > 0
 
