@@ -1,0 +1,25 @@
+- name: Bring up two linked docker containers
+  hosts: localhost
+  vars:
+    inventory:
+      - name: provision_docker_host_one
+        image: "ubuntu-upstart:14.04"
+      - name: provision_docker_host_two
+        image: "ubuntu-upstart:14.04"
+        links:
+          - provision_docker_host_one
+  roles:
+    - role: provision_docker
+      provision_docker_inventory: "{{ inventory }}"
+
+
+- name: Run tests for docker connection cloud
+  hosts: provision_docker_host_two
+  tasks:
+    # This step will fail in case container is not linked.
+    - name: Search for shared env variable first container
+      shell: env | grep PROVISION_DOCKER_HOST_ONE_NAME
+      register: env_out
+    - name: print env
+      debug:
+        msg: "{{ env_out.stdout_lines }}"
