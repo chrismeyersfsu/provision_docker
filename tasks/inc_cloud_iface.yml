@@ -1,5 +1,5 @@
 - name: Bring up list of hosts
-  local_action: 
+  local_action:
     module: docker_container
     name: "{{ item['name'] }}"
     image: "{{ item.image|default(provision_docker_image_default) }}"
@@ -12,7 +12,7 @@
     expose: "{{ item.expose|default(['1-65535']) }}"
     command: "{{ item.command|default(omit) }}"
     env: "{{ item.env|default(omit) }}"
-    links: "{{ item.inks|default(omit) }}"
+    links: "{{ item.links|default(omit) }}"
     network_mode: "{{ item.network_mode|default(provision_docker_network) }}"
   with_items: "{{ provision_docker_inventory }}"
 
