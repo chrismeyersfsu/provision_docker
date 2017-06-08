@@ -1,6 +1,5 @@
 - name: Bring up list of hosts
-  local_action:
-    module: docker_container
+  docker_container:
     name: "{{ item['name'] }}"
     image: "{{ item.image|default(provision_docker_image_default) }}"
     privileged: "{{ provision_docker_privileged }}"
@@ -17,9 +16,7 @@
   with_items: "{{ provision_docker_inventory }}"
 
 - name: Get IP of container
-  local_action:
-    module: "shell"
-    args: "{{ role_path }}/files/docker_inspect.sh {{ item.name }}"
+  shell: "{{ role_path }}/files/docker_inspect.sh {{ item.name }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory }}"
   changed_when: false
@@ -36,8 +33,7 @@
 
   # TODO: copy ALL host vars in the inventory
   - name: "Associate ip address with hosts"
-    local_action:
-      module: add_host
+    add_host:
       name: "{{ item.1['name'] }}"
       ansible_ssh_host: "{{ provision_docker_ip.results[item.0].stdout }}"
       ansible_ssh_user: "{{ item.1['ansible_ssh_user']|default(provision_docker_ssh_user) }}"
@@ -57,8 +53,7 @@
 
 # TODO: copy ALL host vars in the inventory
 - name: "Add docker hosts with connection docker"
-  local_action:
-    module: add_host
+  add_host:
     name: "{{ item.1['name'] }}"
     docker_ip: "{{ provision_docker_ip.results[item.0].stdout }}"
     ansible_connection: docker

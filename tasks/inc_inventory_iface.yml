@@ -1,6 +1,5 @@
 - name: Bring up inventory group of hosts
-  local_action:
-    module: docker_container
+  docker_container:
     # TODO: |default(random_hostname)
     name: "{{ item }}"
     image: "{{ hostvars[item].image|default(provision_docker_image_default) }}"
@@ -18,9 +17,7 @@
   with_items: "{{ provision_docker_inventory_group }}"
 
 - name: Get IP of container
-  local_action:
-    module: "shell"
-    args: "{{ role_path }}/files/docker_inspect.sh {{ item }}"
+  shell: "{{ role_path }}/files/docker_inspect.sh {{ item }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory_group }}"
   changed_when: false
@@ -56,7 +53,7 @@
 - block:
     # TODO: copy ALL host vars in the inventory
     - name: "Add docker hosts with connection docker"
-      local_action:
+      add_host:
         module: add_host
         name: "{{ item.1 }}"
         docker_ip: "{{ provision_docker_ip.results[item.0].stdout }}"
