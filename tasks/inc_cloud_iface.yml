@@ -15,8 +15,14 @@
     network_mode: "{{ item.network_mode|default(provision_docker_network) }}"
   with_items: "{{ provision_docker_inventory }}"
 
+- name: Copy inspect script to server
+  copy:
+    src: "{{ role_path }}/files/docker_inspect.sh"
+    dest: "/tmp/docker_inspect.sh"
+    mode: 0744
+
 - name: Get IP of container
-  shell: "{{ role_path }}/files/docker_inspect.sh {{ item.name }}"
+  shell: "/tmp/docker_inspect.sh {{ item.name }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory }}"
   changed_when: false
