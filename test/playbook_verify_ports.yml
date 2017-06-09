@@ -1,0 +1,49 @@
+---
+- name: Bring up one container for ports test
+  hosts: localhost
+  vars:
+    inventory:
+      - name: provision_docker_host_one
+        image: "nimmis/ubuntu:16.04"
+        expose: 80
+        ports:
+          - 12345:80
+  roles:
+    - role: provision_docker
+      provision_docker_inventory: "{{ inventory }}"
+
+
+- name: Deploy apache server in container
+  hosts: provision_docker_host_one
+  tasks:
+    - name: Deploy apt key for nginx
+      apt_key:
+        url: 'https://nginx.org/keys/nginx_signing.key'
+        state: present
+    - name: Add repository for nginx
+      apt_repository:
+        repo: deb http://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ansible_distribution_release}} nginx
+        state: present
+        filename: nginx-stable
+        update_cache: yes
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+
+
+- name: Verify that sevice is exposed on host's port
+  hosts: localhost
+  tasks:
+    - name: Wait for nginx appear on port 12345
+      uri:
+        url: "http://localhost:12345"
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 10
+      delay: 1
