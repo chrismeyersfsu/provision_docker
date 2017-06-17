@@ -45,6 +45,10 @@ bumblebee image="ubuntu-upstart:14.04"
 | provision_docker_inventory             	| no       	|                     	|                                                                                            	| List of <name, image> pairs for which to bring up a Docker container.                                                                                                                                                              	|
 | provision_docker_use_docker_connection 	| no       	| false               	| true/false                                                                                 	| Use docker_connection plugin to connect to Docker containers instead of the default ssh.                                                                                                                                           	|
 | provision_docker_network 	| no       	|                    	| Some name from available networks as listed with `$ docker network ls`                                                                                 	| Specify the network that the Docker container should connect to.                                                                                                                                           	|
+| provision_docker_volumes 	                | no       	|       | List of volumes to mount within the container.                                                               	|  Use docker CLI-style syntax: /host:/container[:mode].                                                                                                                                            	|
+| provision_docker_volumes_from 	        | no       	|     	|  List of container names or to get volumes from.                                                                                                 	|                                                                                                                                           	|
+
+
 
 
 ### Mac OS X + docker-machine + VMware Fusion

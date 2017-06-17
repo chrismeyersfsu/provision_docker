@@ -1,0 +1,41 @@
+---
+- name: Bring up one container for volumes test
+  hosts: localhost
+  vars:
+    inventory:
+      - name: provision_docker_host_one
+        image: "chrismeyers/centos7"
+        volumes: /data
+      - name: provision_docker_host_two
+        image: "chrismeyers/centos7"
+        volumes_from: provision_docker_host_one
+      - name: provision_docker_host_three
+        image: "chrismeyers/centos7"
+  roles:
+    - role: provision_docker
+      provision_docker_inventory: "{{ inventory }}"
+
+- name: Write /data directory from first container
+  hosts: provision_docker_host_one
+  tasks:
+    - name: Write /data directory
+      copy:
+        content: "This is my file"
+        dest: /data/myfile.txt
+
+- name: Read /data/myfile.txt content from second container
+  hosts: provision_docker_host_two
+  tasks:
+    - shell: cat /data/myfile.txt
+      register: datacontent
+    - fail:
+      when: datacontent.stdout != "This is my file"
+
+- name: Ensure /data is absent in third container
+  hosts: provision_docker_host_three
+  tasks:
+    - stat:
+        path: /data
+      register: symdir
+    - fail:
+      when: symdir.stat.islnk is defined
