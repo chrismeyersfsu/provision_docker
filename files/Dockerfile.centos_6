@@ -2,7 +2,7 @@ FROM centos:6
 ENV container docker
 
 # Update all base packages to keep them fresh
-RUN yum -y update; yum clean all
+RUN yum -y update; yum clean all; yum install -y yum-plugin-ovl
 
 # Install initscripts, but turn off all services by default
 RUN yum -y install initscripts; yum clean all; rm /etc/rc.d/rc*.d/*
