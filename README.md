@@ -26,7 +26,16 @@ Install Docker
 ```
 - hosts: servers
   roles:
-     - mongrelion.docker
+    - mongrelion.docker
+```
+
+Install and configure docker
+```yaml
+- hosts: servers
+  roles:
+    - role: mongrelion.docker
+      docker_config:
+        userland-proxy: false
 ```
 
 Testing
