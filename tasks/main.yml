@@ -12,6 +12,15 @@
     version: 1.9.0
   when: dockerpy
 
+- name: apply default daemon config
+  set_fact:
+    docker_json: "{{ default_docker_config | combine(docker_config | default({})) }}"
+
+- name: configure docker clusterstore
+  set_fact:
+    docker_json: '{{ docker_json | combine({"cluster-store": "consul://{{ consul_ip }}:8500"})}}'
+  when: docker_clusterstore
+
 - name: ensure daemon config file is present
   template:
     src: daemon.j2.json
