@@ -3,17 +3,20 @@
 docker
 =========
 
-Install Docker
-
-Requirements
-------------
-
-None
+Install and configure Docker.
 
 Role Variables
 --------------
 
-None
+### `docker_config`
+
+A dict of options that are written into docker's `daemon.json` config file. See [the docs for dockerd](https://docs.docker.com/engine/reference/commandline/dockerd/) for a full list of available options.
+
+Default values: (set them in your `docker_config` to overwrite)
+
+    storage-driver: devicemapper
+    log-level: info
+
 
 Dependencies
 ------------
@@ -23,7 +26,7 @@ None
 Example Playbook
 ----------------
 Install Docker
-```
+```yaml
 - hosts: servers
   roles:
     - mongrelion.docker
@@ -35,6 +38,7 @@ Install and configure docker
   roles:
     - role: mongrelion.docker
       docker_config:
+        live-restore: true
         userland-proxy: false
 ```
 
