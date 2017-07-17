@@ -5,10 +5,10 @@
     inventory:
       - name: provision_docker_host_one
         image: "chrismeyers/centos7"
-        volumes: /data
+        provision_docker_volumes: "/data"
       - name: provision_docker_host_two
         image: "chrismeyers/centos7"
-        volumes_from: provision_docker_host_one
+        provision_docker_volumes_from: provision_docker_host_one
       - name: provision_docker_host_three
         image: "chrismeyers/centos7"
   roles:
