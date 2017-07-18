@@ -13,8 +13,8 @@
     env: "{{ item.env|default(omit) }}"
     links: "{{ item.links|default(omit) }}"
     network_mode: "{{ item.network_mode|default(provision_docker_network) }}"
-    volumes: "{{ item.volumes|default(omit) }}"
-    volumes_from: "{{ item.volumes_from|default(omit) }}"
+    volumes: "{{ item.provision_docker_volumes|default(omit) }}"
+    volumes_from: "{{ item.provision_docker_volumes_from|default(omit) }}"
   with_items: "{{ provision_docker_inventory }}"
 
 - name: Copy inspect script to server

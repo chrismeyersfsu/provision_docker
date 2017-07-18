@@ -3,15 +3,15 @@
   hosts: localhost
   roles:
     - role: provision_docker
-      volumes: "/data"
       provision_docker_inventory_group: "{{ groups.decepticons[0] }}"
+      provision_docker_volumes: "/data"
 
 - name: Bring up second docker container for inventory iface test volumes_from parameter
   hosts: localhost
   roles:
     - role: provision_docker
-      volumes_from: "{{ groups.decepticons[0] }}"
       provision_docker_inventory_group: "{{ groups.decepticons[1] }}"
+      provision_docker_volumes_from: "{{ groups.decepticons[0] }}"
 
 - name: Bring up fourth docker container for inventory iface test missing volumes parameters
   hosts: localhost
