@@ -19,6 +19,4 @@
     mode: 0755
 
 - name: Execute docker setup script
-  shell: "docker-setup.sh"
-  args:
-    chdir: /tmp/
+  shell: "/tmp/docker-setup.sh"
