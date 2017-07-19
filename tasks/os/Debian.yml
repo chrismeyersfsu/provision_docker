@@ -7,21 +7,18 @@
     - apt-transport-https
     - ca-certificates
 
-- name: ensure Docker GPG key is present
-  apt_key:
-    id: "{{ docker_gpg_key }}"
-    keyserver: "{{ key_server }}"
+- name: If docker_version is defined, switch to rancher setup script
+  set_fact: 
+    setup_script_url: "https://releases.rancher.com/install-docker/{{ docker_version }}.sh"
+  when: docker_version is defined
 
-- name: ensure docker repo is present
-  apt_repository:
-    repo: deb https://apt.dockerproject.org/repo debian-jessie main
-    state: present
-    filename: docker
-    update_cache: true
+- name: Download docker setup script for desired version
+  get_url:
+    url: "{{ setup_script_url }}"
+    dest: "/tmp/docker-setup.sh"
+    mode: 0755
 
-- name: ensure docker is installed
-  apt:
-    name: "{{ docker_engine_pkg }}"
-    state: present
-    update_cache: true
-    cache_valid_time: 3600
+- name: Execute docker setup script
+  shell: "docker-setup.sh"
+  args:
+    chdir: /tmp/

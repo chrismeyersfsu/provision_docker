@@ -6,3 +6,5 @@ vagrant: no
 default_docker_config:
   storage-driver: devicemapper
   log-level: info
+
+setup_script_url: "https://get.docker.com"
