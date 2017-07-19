@@ -6,17 +6,3 @@
   with_items:
     - apt-transport-https
     - ca-certificates
-
-- name: If docker_version is defined, switch to rancher setup script
-  set_fact: 
-    setup_script_url: "https://releases.rancher.com/install-docker/{{ docker_version }}.sh"
-  when: docker_version is defined
-
-- name: Download docker setup script for desired version
-  get_url:
-    url: "{{ setup_script_url }}"
-    dest: "/tmp/docker-setup.sh"
-    mode: 0755
-
-- name: Execute docker setup script
-  shell: "/tmp/docker-setup.sh"
