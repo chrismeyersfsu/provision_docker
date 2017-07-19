@@ -6,5 +6,5 @@
 
 - name: ensure docker is installed
   yum:
-    name: docker-engine
+    name: "{{ docker_engine_pkg }}"
     state: present

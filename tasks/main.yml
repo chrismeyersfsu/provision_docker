@@ -1,4 +1,9 @@
 ---
+
+- name: Construct docker-engine version spec
+  set_fact:
+    docker_engine_pkg: "{{ ( docker_version is defined ) | ternary('docker-engine=' ~ docker_version, 'docker-engine') }}"
+
 - include: "os/{{ ansible_os_family }}.yml"
 
 - name: ensure config folder is present

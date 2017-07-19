@@ -21,7 +21,7 @@
 
 - name: ensure docker is installed
   apt:
-    name: docker-engine
+    name: "{{ docker_engine_pkg }}"
     state: present
     update_cache: true
     cache_valid_time: 3600
