@@ -2,6 +2,8 @@
 
 - include: "os/{{ ansible_os_family }}.yml"
 
+- include: "install.yml"
+
 - name: ensure config folder is present
   file:
     path: /etc/docker
