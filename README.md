@@ -40,7 +40,7 @@ URL pointing to a Docker setup script that will install the specified `docker_ve
 
 Default value: `https://releases.rancher.com/install-docker/{{ docker_version }}.sh` 
 
-The default URL utilizes ([Rancher Labs' version-specific, OS-agnostic setup scripts](https://github.com/rancher/install-docker), which in turn just install the appropriate version of `docker-ce` or `docker-engine` from the official Docker `apt` and `yum` repositories.
+The default URL utilizes [Rancher Labs' version-specific, OS-agnostic setup scripts](https://github.com/rancher/install-docker), which in turn just install the appropriate version of `docker-ce` or `docker-engine` from the official Docker `apt` and `yum` repositories.
 
 Dependencies
 ------------
