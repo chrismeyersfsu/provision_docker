@@ -17,15 +17,11 @@ Default values: (set them in your `docker_config` to overwrite)
     storage-driver: devicemapper
     log-level: info
 
----
-
 ### `docker_version`
 
 Specify the version of Docker to install, e.g. `1.12.6`, `17.05`.
 
 Default value: `17.06`
-
----
 
 ### `setup_script_md5_sum`
 
@@ -37,8 +33,6 @@ Either:
 
 1. Generate an md5 checksum for the desired version's install script
 1. If you know what you are doing and are not worried about security, set this variable to "no" or "false" to disable checksum verification of the setup script.
-
----
 
 ### `setup_script_url`
 
