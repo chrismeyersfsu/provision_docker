@@ -21,7 +21,7 @@ Default values: (set them in your `docker_config` to overwrite)
 
 Specify the version of Docker to install, e.g. `1.12.6`, `17.05`.
 
-Default value: `17.06`
+Default value: `17.03`
 
 ### `setup_script_md5_sum`
 
