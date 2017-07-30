@@ -14,7 +14,7 @@ galaxy_info:
   - name: Ubuntu
     versions:
       - xenial
-      - zesty
+      #- zesty
   galaxy_tags:
     - docker
     - swarm

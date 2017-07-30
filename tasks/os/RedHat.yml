@@ -1,10 +1,8 @@
 ---
-- name: ensure repo is present
-  copy:
-    src: repos/Centos-7
-    dest: /etc/yum.repos.d/docker.repo
 
-- name: ensure docker is installed
+- name: ensure docker dependencies are installed
   yum:
-    name: docker-engine
+    name: "{{ item }}"
     state: present
+  with_items:
+    - ca-certificates
