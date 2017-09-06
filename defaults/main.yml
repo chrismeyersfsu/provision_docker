@@ -10,8 +10,8 @@ default_docker_config:
 docker_version: "17.06"
 setup_script_url: "https://releases.rancher.com/install-docker/{{ docker_version }}.sh"
 
-# DANGER! THIS VALUE IS USED TO VERIFY THAT THE DOCKER SETUP SCRIPT IS LEGITIMATE. 
+# DANGER! THIS VALUE IS USED TO VERIFY THAT THE DOCKER SETUP SCRIPT IS LEGITIMATE.
 # DO NOT MODIFY THIS UNLESS YOU HAVE SPECIFIED A DIFFERENT "docker_version" or "setup_script_url"
 # IF YOU HAVE GENERATED AN MD5 CHECKSUM FOR YOUR DESIRED SETUP SCRIPT, STORE IT IN THIS VARIABLE
 # IF YOU REALLY DON'T WANT TO VERIFY CHECKSUM, SET THIS VALUE TO "false" or "no"
-setup_script_md5_sum: "659c2c28875469d68b14a71e44cb281f" 
+setup_script_md5_sum: "6be324016277879d49bd0e7f9f91e546"
