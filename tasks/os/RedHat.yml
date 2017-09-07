@@ -6,3 +6,4 @@
     state: present
   with_items:
     - ca-certificates
+    - yum-utils
