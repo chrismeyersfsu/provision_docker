@@ -16,6 +16,7 @@
     network_mode: "{{ hostvars[item].network_mode|default(provision_docker_network) }}"
     volumes: "{{ provision_docker_volumes|default(omit) }}"
     volumes_from: "{{ provision_docker_volumes_from|default(omit) }}"
+    pull: "{{ hostvars[item].pull|default(omit) }}"
   with_items: "{{ provision_docker_inventory_group }}"
 
 - name: Copy inspect script to server
