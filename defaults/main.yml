@@ -3,6 +3,7 @@ consul_ip: 127.0.0.1
 docker_clusterstore: no
 dockerpy: no
 vagrant: no
+upgrade_docker: false
 default_docker_config:
   storage-driver: devicemapper
   log-level: info

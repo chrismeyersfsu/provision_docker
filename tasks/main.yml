@@ -2,7 +2,14 @@
 
 - include: "os/{{ ansible_os_family }}.yml"
 
+- name: check if docker is installed
+  command: which dockerd
+  register: which_dockerd
+  changed_when: False
+  ignore_errors: yes
+
 - include: "install.yml"
+  when: upgrade_docker or (which_dockerd | failed)
 
 - name: ensure config folder is present
   file:

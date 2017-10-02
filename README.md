@@ -36,11 +36,26 @@ Either:
 
 ### `setup_script_url`
 
-URL pointing to a Docker setup script that will install the specified `docker_version`. 
+URL pointing to a Docker setup script that will install the specified `docker_version`.
 
-Default value: `https://releases.rancher.com/install-docker/{{ docker_version }}.sh` 
+Default value: `https://releases.rancher.com/install-docker/{{ docker_version }}.sh`
 
 The default URL utilizes [Rancher Labs' version-specific, OS-agnostic setup scripts](https://github.com/rancher/install-docker), which in turn just install the appropriate version of `docker-ce` or `docker-engine` from the official Docker `apt` and `yum` repositories.
+
+### `upgrade_docker`
+
+Per default, this role will only download and run the installation script when
+Docker is not installed (or more precise: when `dockerd` is not in `$PATH`). Set
+`upgrade_docker` to `True` to override this behavior and force the install
+script to be run.
+
+So in order to upgrade Docker on managed systems, take the following steps:
+
+0. Either download a newer version of this role (with a more recent default
+   version) or update `docker_version` and `setup_script_md5_sum` in your
+   host/group vars.
+1. Run your playbook with `-e upgrade_docker=True`
+
 
 Dependencies
 ------------
@@ -75,7 +90,7 @@ Bring the VM up with
 $ vagrant up
 ```
 
-This will automatically run the playbooks against the virtual machine once it's up.  
+This will automatically run the playbooks against the virtual machine once it's up.
 After making changes to any playbook, you can test the provisioning with
 
 ```
