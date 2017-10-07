@@ -1,0 +1,11 @@
+- hosts: robots
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: "Invoke default docker provision"
+      provision_docker:
+
+- hosts: robots
+  gather_facts: true
+  tasks:
+    - shell: ls

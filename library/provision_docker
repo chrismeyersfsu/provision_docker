@@ -1,0 +1,40 @@
+ANSIBLE_METADATA = {'metadata_version': '1.0',
+                    'status': ['stableinterface'],
+                    'supported_by': 'Chris Meyers'}
+
+
+DOCUMENTATION = '''
+---
+module: provision_docker
+short_description: Provision docker images for purposes of testing.
+description:
+  - Start docker containers for purposes of CI/CD.
+version_added: "2.3"
+options:
+  name:
+    description:
+    - Name of the docker image.
+    required: true
+  image:
+    description:
+    - Docker image to start (defaults to chrismeyers/centos6)
+    required: true
+  privileged:
+    description:
+    - Defaults to True. Start container in privileged mode or not.
+    required: false
+  state:
+    description:
+    - Defaults to 'started'. Can be 'stopped' to stop a container
+    required: false
+
+notes:
+    - Always 'changed'
+author:
+    - "Chris Meyers"
+'''
+
+EXAMPLES = '''
+- provision_docker:
+    name: "my_nginx_container"
+'''
