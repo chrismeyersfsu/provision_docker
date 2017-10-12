@@ -2,6 +2,8 @@
 - name: reload unit
   become: true
   command: systemctl daemon-reload
+  when:
+    - ansible_service_mgr == "systemd"
 
 - name: restart docker
   service:
