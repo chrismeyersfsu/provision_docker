@@ -1,0 +1,26 @@
+---
+- name: Bring up a simple container to test published ports access
+  hosts: localhost
+  vars:
+    inventory:
+      - name: hcwohl
+        image: "nginx:stable"
+        expose:
+          - 80
+        ports:
+          - 8080:80
+  roles:
+    - role: provision_docker
+      provision_docker_inventory: "{{ inventory }}"
+
+- name: Check if we can reach the port
+  hosts: localhost
+  tasks:
+    - name: Send a HTTP request to our container
+      uri:
+        url: "http://localhost:8080"
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 10
+      delay: 1
