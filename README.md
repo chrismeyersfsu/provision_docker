@@ -86,6 +86,10 @@ The route does not persist across reboots. To persist the changes edit `/Library
 </plist>
 ```
 
+### Expose and publish ports
+
+Set ``expose`` and ``ports`` lists in your inventory per container. Checkout the _docker_container_ Ansible module for reference.
+
 ## Similar Work
 
 * https://github.com/metacloud/molecule
