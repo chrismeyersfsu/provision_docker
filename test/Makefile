@@ -47,4 +47,4 @@ docker_publish:
 	ansible-playbook -i inventory playbook_verify_publish.yml
 
 clean:
-$(clean_command)
+	$(clean_command)
