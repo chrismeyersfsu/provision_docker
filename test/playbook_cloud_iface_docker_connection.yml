@@ -23,5 +23,5 @@
     # Role under test
     - { role: test_add_file, test_add_file_path: "{{ file }}"  }
   tasks:
-    - include: "inc_verify_hosts.yml"
+    - import_tasks: "inc_verify_hosts.yml"
 
