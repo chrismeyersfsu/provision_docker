@@ -20,19 +20,13 @@
     pull: "{{ hostvars[item].pull|default(omit) }}"
   with_items: "{{ provision_docker_inventory_group }}"
 
-- name: Copy inspect script to server
-  copy:
-    src: "{{ role_path }}/files/docker_inspect.sh"
-    dest: "/tmp/docker_inspect.sh"
-    mode: 0744
-
 - name: Get IP of container
-  shell: "/tmp/docker_inspect.sh {{ item }}"
+  local_action:
+    module: "command"
+    args: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item }}"
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory_group }}"
   changed_when: false
-
-- debug: msg="{{provision_docker_ip}}"
 
 - block:
     - name: "Associate ip address with hosts"
