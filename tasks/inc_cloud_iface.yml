@@ -18,12 +18,6 @@
     pull: "{{ item.pull|default(omit) }}"
   with_items: "{{ provision_docker_inventory }}"
 
-- name: Copy inspect script to server
-  copy:
-    src: "{{ role_path }}/files/docker_inspect.sh"
-    dest: "/tmp/docker_inspect.sh"
-    mode: 0744
-
 - name: Get IP of container
   local_action:
     module: "command"
