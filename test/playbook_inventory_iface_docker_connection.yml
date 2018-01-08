@@ -18,4 +18,4 @@
       test_add_file_path: "{{ file }}"
 
   tasks:
-    - include: inc_verify_transformers.yml
+    - import_tasks: inc_verify_transformers.yml
