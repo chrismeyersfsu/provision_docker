@@ -57,13 +57,13 @@
 
 - name: ensure unit file folder is present
   file:
-    path: /usr/lib/systemd/system
+    path: /etc/systemd/system
     state: directory
 
 - name: ensure unit file is present & up to date
   template:
     src: docker.j2.service
-    dest: /usr/lib/systemd/system/docker.service
+    dest: /etc/systemd/system/docker.service
   notify:
     - restart docker
 
