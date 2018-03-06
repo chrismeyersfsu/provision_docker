@@ -1,0 +1,19 @@
+---
+- name: Bring up a simple container to test published ports access
+  hosts: localhost
+  roles:
+    - role: provision_docker
+      provision_docker_inventory_group: "{{ groups['test_publish'] }}"
+      provision_docker_use_docker_connection: true
+
+- name: Check if we can reach the port
+  hosts: localhost
+  tasks:
+    - name: Send a HTTP request to our container
+      uri:
+        url: "http://localhost:8080"
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 10
+      delay: 1
