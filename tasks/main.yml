@@ -44,6 +44,7 @@
   notify:
     - reload unit
     - restart docker
+  when: docker_proxy
 
 - name: ensure daemon config file is present
   template:
