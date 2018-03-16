@@ -58,7 +58,7 @@ So in order to upgrade Docker on managed systems, take the following steps:
 
 ### `docker_proxy`, `docker_http_proxy`, `docker_https_proxy`, `docker_no_proxy`
 
-Specify if proxy settings. docker_proxy specifies if proxy need to be applied. Default value of `docker_proxy` is no. If you need proxy set it to yes and updated other three variables as needed.
+`docker_proxy` specifies if proxy need to be applied. Default value of `docker_proxy` is no. If you need proxy set it to yes and updated other three variables as needed.
 
 Dependencies
 ------------
