@@ -31,6 +31,21 @@
     docker_json: '{{ docker_json | combine({"cluster-store": "consul://{{ consul_ip }}:8500"})}}'
   when: docker_clusterstore
 
+- name: create directory for proxy file
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+  when: docker_proxy
+
+- name: create http-proxy.conf
+  template:
+    src: http-proxy.j2.conf
+    dest: /etc/systemd/system/docker.service.d/http-proxy.conf
+  notify:
+    - reload unit
+    - restart docker
+  when: docker_proxy
+
 - name: ensure daemon config file is present
   template:
     src: daemon.j2.json
