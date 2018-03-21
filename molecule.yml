@@ -17,24 +17,24 @@ docker:
       privileged: true
       volume_mounts:
         - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    - name: stretch
-      image: paulfantom/debian-molecule
-      image_version: 9
-      privileged: true
-      volume_mounts:
-        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#    - name: stretch
+#      image: paulfantom/debian-molecule
+#      image_version: 9
+#      privileged: true
+#      volume_mounts:
+#        - /sys/fs/cgroup:/sys/fs/cgroup:ro
     - name: jessie
       image: paulfantom/debian-molecule
       image_version: 8
       privileged: true
       volume_mounts:
         - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    - name: centos7
-      image: paulfantom/centos-molecule
-      image_version: 7
-      privileged: true
-      volume_mounts:
-        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#    - name: centos7
+#      image: paulfantom/centos-molecule
+#      image_version: 7
+#      privileged: true
+#      volume_mounts:
+#        - /sys/fs/cgroup:/sys/fs/cgroup:ro
 #    - name: fedora
 #      image: paulfantom/fedora-molecule
 #      image_version: 27
