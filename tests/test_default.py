@@ -52,4 +52,3 @@ def test_packages(host):
         DOCKER = 'docker-ce'
 
     assert host.package(DOCKER).is_installed
-

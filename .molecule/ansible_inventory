@@ -1,5 +1,0 @@
-[all]
-xenial ansible_connection=docker
-stretch ansible_connection=docker
-jessie ansible_connection=docker
-centos7 ansible_connection=docker
