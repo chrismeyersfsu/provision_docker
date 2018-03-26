@@ -1,6 +1,7 @@
 ---
 
-- set_fact:
+- name: Compose md5 checksum
+  set_fact:
     setup_script_checksum: "md5:{{ setup_script_md5_sum }}"
   when: setup_script_md5_sum is defined and setup_script_md5_sum
 
@@ -13,3 +14,5 @@
 
 - name: Execute docker setup script
   shell: "/tmp/docker-setup.sh"
+  tags:
+    - skip_ansible_lint

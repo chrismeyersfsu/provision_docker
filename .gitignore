@@ -1,5 +1,9 @@
 # Ignore Vagrant cache files
 /.vagrant/
 
+# Ignore molecule and pytest files
+**__pycache__**
+.molecule
+
 # Ignore retry files
 *.retry
