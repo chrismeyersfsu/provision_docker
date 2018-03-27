@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - ansible-role-docker
+  vars:
+    default_docker_config:
+      storage-driver: vfs
+      log-level: info
