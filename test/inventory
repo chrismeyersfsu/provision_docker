@@ -10,6 +10,13 @@ ironhide image="ubuntu-upstart:14.04"
 megatron image="chrismeyers/centos6"
 starscream image="chrismeyers/centos7"
 
+[test_links]
+test_links_host_one image="ubuntu-upstart:14.04"
+test_links_host_two image="ubuntu-upstart:14.04" links="['test_links_host_one']"
+
+[test_publish]
+test_publish_host image="nginx:stable" expose="[80]" ports="['8080:80']"
+
 [robots:children]
 autobots
 decepticons

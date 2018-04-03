@@ -1,0 +1,19 @@
+- name: Bring up two linked docker containers
+  hosts: localhost
+
+  roles:
+    - role: provision_docker
+      provision_docker_inventory_group: "{{ groups['test_links'] }}"
+      provision_docker_use_docker_connection: true
+
+
+- name: Run tests for docker connection cloud
+  hosts: test_links_host_two
+  tasks:
+    # This step will fail in case container is not linked.
+    - name: Search for shared env variable first container
+      shell: env | grep TEST_LINKS_HOST_ONE_NAME
+      register: env_out
+    - name: print env
+      debug:
+        msg: "{{ env_out.stdout_lines }}"
