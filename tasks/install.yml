@@ -1,5 +1,5 @@
 ---
-- name: Install system dependencies
+- name: install system dependencies
   package:
     name: "{{ item }}"
     state: present
@@ -8,13 +8,44 @@
   until: _dependencies_install | success
   with_items: "{{ docker_dependencies }}"
 
-- name: Remove old versions
+- name: remove old versions
   package:
     name: "{{ item }}"
     state: absent
   with_items:
     - lxc-docker
     - docker-engine
+    - docker
+    - docker.io
+
+- block:
+  - name: download GPG key
+    get_url:
+      url: "https://download.docker.com/linux/ubuntu/gpg"
+      dest: "/tmp/docker.gpg"
+    become: no
+    run_once: true
+    delegate_to: localhost
+
+  - name: add GPG key
+    apt_key:
+      data: "{{ lookup('file', '/tmp/docker.gpg') }}"
+      state: present
+
+  - name: add docker repository | Debian
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+      state: present
+  when: ansible_os_family == "Debian"
+
+- name: add docker repository | RedHat
+  yum_repository:
+    name: docker-ce-stable
+    description: "Docker CE Stable - $basearch"
+    baseurl: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/$releasever/$basearch/stable"
+    gpgcheck: true
+    gpgkey: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+  when: ansible_os_family == "RedHat" and ansible_distribution != "OracleLinux"
 
 - name: Install docker
   package:
