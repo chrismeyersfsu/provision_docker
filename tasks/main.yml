@@ -1,6 +1,17 @@
 ---
+- name: Gather variables for each operating system
+  include_vars: "{{ item }}"
+  with_items: "{{ ansible_os_family | lower }}.yml"
+  tags:
+    - always
 
-- include: "os/{{ ansible_os_family }}.yml"
+- include: preflight.yml
+
+- name: ensure docker dependencies are installed
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ docker_dependencies }}"
 
 - name: check if docker is installed
   command: which dockerd
@@ -9,7 +20,7 @@
   ignore_errors: yes
 
 - include: "install.yml"
-  when: upgrade_docker or (which_dockerd | failed)
+  when: docker_upgrade or (which_dockerd | failed)
 
 - name: ensure config folder is present
   file:
@@ -21,15 +32,6 @@
     name: docker-py
     version: 1.9.0
   when: dockerpy
-
-- name: apply default daemon config
-  set_fact:
-    docker_json: "{{ default_docker_config | combine(docker_config | default({})) }}"
-
-- name: configure docker clusterstore
-  set_fact:
-    docker_json: '{{ docker_json | combine({"cluster-store": "consul://{{ consul_ip }}:8500"})}}'
-  when: docker_clusterstore
 
 - name: create directory for proxy file
   file:
@@ -55,17 +57,15 @@
 
 - name: ensure unit file folder is present
   file:
-    path: /usr/lib/systemd/system
+    path: /etc/systemd/system
     state: directory
 
 - name: ensure unit file is present & up to date
   template:
     src: docker.j2.service
-    dest: /usr/lib/systemd/system/docker.service
+    dest: /etc/systemd/system/docker.service
   notify:
     - restart docker
-
-- meta: flush_handlers
 
 - name: ensure starts on system boot
   systemd:

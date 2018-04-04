@@ -1,9 +1,0 @@
----
-
-- name: ensure docker dependencies are installed
-  yum:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - ca-certificates
-    - yum-utils
