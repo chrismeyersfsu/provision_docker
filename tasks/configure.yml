@@ -8,7 +8,7 @@
     - /etc/systemd/system
 
 - name: ensure daemon config file is present
-  template:
+  copy:
     content: |
       {{ docker_json | to_nice_json(indent=2) }}
     dest: /etc/docker/daemon.json
@@ -21,9 +21,8 @@
   when: docker_proxy
 
 - name: create http-proxy.conf
-  template:
+  copy:
     content: |
-      # {{ ansible_managed }}
       [Service]
       Environment="HTTP_PROXY={{ docker_http_proxy }}" "HTTPS_PROXY={{ docker_https_proxy }}" "NO_PROXY={{ docker_no_proxy }}"
     dest: /etc/systemd/system/docker.service.d/http-proxy.conf
