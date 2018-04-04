@@ -1,29 +1,14 @@
 ---
 - name: Set backwards compatibility for docker_upgrade var
   set_fact:
-    docker_upgrade: "{{ upgrade_docker }}"
-  when: upgrade_docker is defined
+    docker_version: latest
+  when: upgrade_docker is defined or docker_upgrade is defined
 
 - name: Set backwards compatibility for default_config
   set_fact:
     docker_default_config: "{{ default_docker_config }}"
   when: default_docker_config is defined
 
-- name: Set backwards compatibility for setup_script_md5_sum
-  set_fact:
-    docker_setup_script_md5_sum: "{{ setup_script_md5_sum }}"
-  when: setup_script_md5_sum is defined
-
-- name: Set backwards compatibility for setup_script_url
-  set_fact:
-    docker_setup_script_url: "{{ setup_script_url }}"
-  when: setup_script_url is defined
-
 - name: apply default daemon config
   set_fact:
     docker_json: "{{ docker_default_config | combine(docker_config | default({})) }}"
-
-- name: update docker (backwards compatibility flag)
-  set_fact:
-    docker_version: latest
-  when: docker_upgrade
