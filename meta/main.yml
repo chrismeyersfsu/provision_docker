@@ -3,7 +3,7 @@ galaxy_info:
   description: Docker
   company: Container Solutions
   license: MIT
-  min_ansible_version: 2.1
+  min_ansible_version: 2.3
   platforms:
   - name: EL
     versions:
