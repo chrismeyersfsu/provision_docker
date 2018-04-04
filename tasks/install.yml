@@ -18,8 +18,8 @@
 
 - name: Install docker
   package:
-    name: "{{ docker_package | default('docker-ce') }}"
-    state: present
+    name: "{{ docker_package }}"
+    state: "{{ (docker_version == 'latest') | ternary('latest', 'present') }}"
     update_cache: yes
   register: __ret
   retries: 10

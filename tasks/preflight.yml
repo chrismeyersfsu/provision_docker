@@ -22,3 +22,8 @@
 - name: apply default daemon config
   set_fact:
     docker_json: "{{ docker_default_config | combine(docker_config | default({})) }}"
+
+- name: update docker (backwards compatibility flag)
+  set_fact:
+    docker_version: latest
+  when: docker_upgrade
