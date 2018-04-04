@@ -21,20 +21,20 @@
 - block:
   - name: download GPG key
     get_url:
-      url: "https://download.docker.com/linux/ubuntu/gpg"
-      dest: "/tmp/docker.gpg"
+      url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+      dest: "/tmp/docker_{{ ansible_distribution | lower }}.gpg"
     become: no
     run_once: true
     delegate_to: localhost
 
   - name: add GPG key
     apt_key:
-      data: "{{ lookup('file', '/tmp/docker.gpg') }}"
+      data: "{{ lookup('file', '/tmp/docker_{{ ansible_distribution | lower }}.gpg') }}"
       state: present
 
   - name: add docker repository | Debian
     apt_repository:
-      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+      repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
       state: present
   when: ansible_os_family == "Debian"
 
