@@ -1,0 +1,39 @@
+---
+- name: ensure needed directories are present
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /etc/docker
+    - /etc/systemd/system
+
+- name: ensure daemon config file is present
+  template:
+    content: |
+      {{ docker_json | to_nice_json(indent=2) }}
+    dest: /etc/docker/daemon.json
+  notify: restart docker
+
+- name: create directory for proxy file
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+  when: docker_proxy
+
+- name: create http-proxy.conf
+  template:
+    content: |
+      # {{ ansible_managed }}
+      [Service]
+      Environment="HTTP_PROXY={{ docker_http_proxy }}" "HTTPS_PROXY={{ docker_https_proxy }}" "NO_PROXY={{ docker_no_proxy }}"
+    dest: /etc/systemd/system/docker.service.d/http-proxy.conf
+  notify: restart docker
+  when: docker_proxy
+
+- name: ensure unit file is present & up to date
+  template:
+    src: docker.j2.service
+    dest: /etc/systemd/system/docker.service
+  notify: restart docker
+
+
