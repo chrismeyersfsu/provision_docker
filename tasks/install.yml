@@ -3,9 +3,9 @@
   package:
     name: "{{ item }}"
     state: present
-  register: _dependencies_install
-  retries: 2
-  until: _dependencies_install | success
+  register: __ret
+  retries: 5
+  until: __ret is succeeded
   with_items: "{{ docker_dependencies }}"
 
 - name: remove old versions
@@ -19,17 +19,8 @@
     - docker.io
 
 - block:
-#  - name: download GPG key
-#    get_url:
-#      url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
-#      dest: "/tmp/docker_{{ ansible_distribution | lower }}.gpg"
-#    become: no
-#    run_once: true
-#    delegate_to: localhost
-
   - name: add GPG key
     apt_key:
-      #data: "{{ lookup('file', '/tmp/docker_{{ ansible_distribution | lower }}.gpg') }}"
       url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
       state: present
 
@@ -64,5 +55,3 @@
     name: docker-py
     version: 1.9.0
   when: dockerpy
-
-

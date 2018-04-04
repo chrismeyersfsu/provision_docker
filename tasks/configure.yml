@@ -34,5 +34,3 @@
     src: docker.j2.service
     dest: /etc/systemd/system/docker.service
   notify: restart docker
-
-
