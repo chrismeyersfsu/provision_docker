@@ -1,44 +1,46 @@
+<p><img src="http://1000logos.net/wp-content/uploads/2017/07/Logo-Docker-500x394.jpg" alt="docker logo" title="docker" align="right" height="60" /></p>
+
+# Ansible role: docker
+
 [![Build Status](https://travis-ci.org/mongrelion/ansible-role-docker.svg?branch=master)](https://travis-ci.org/mongrelion/ansible-role-docker)
+[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
+[![Ansible Role](https://img.shields.io/badge/ansible%20role-mongrelion.docker-blue.svg)](https://galaxy.ansible.com/mongrelion/docker/)
+[![GitHub tag](https://img.shields.io/github/tag/mongrelion/ansible-role-docker.svg)](https://github.com/mongrelion/ansible-role-docker/tags)
 
-# docker
+## Description
 
-Install and configure Docker.
+Install and configure [docker](https://www.docker.com) containerization platform.
+
+## Requirements
+
+- Ansible >= 2.3
 
 ## Role Variables
 
-### `docker_config`
+All variables which can be overridden are stored in [defaults/main.yml](defaults/main.yml) file as well as in table below.
 
-A dict of options that are written into docker's `daemon.json` config file. See [the docs for dockerd](https://docs.docker.com/engine/reference/commandline/dockerd/) for a full list of available options.
+| Name           | Default Value | Description                        |
+| -------------- | ------------- | -----------------------------------|
+| `dockerpy` | no | Install docker-py package |
+| `docker_proxy` | no | Enable HTTP proxy setup |
+| `docker_http_proxy` | "" | HTTP proxy server address |
+| `docker_https_proxy` | "" | HTTPS proxy server address |
+| `docker_no_proxy` | "" | Comma-separated list of hosts which won't use HTTP proxy |
+| `docker_version` | "17.06" | docker version which should be installed on target server. Can use `latest` for updates |
+| `docker_default_config` | [ storage-driver: devicemapper, log-level: info ] | Docker daemon configuration |
 
-Default values: (set them in your `docker_config` to overwrite)
+## Example
 
-    storage-driver: devicemapper
-    log-level: info
+### Playbooks
 
-### `docker_version`
-
-Specify the version of Docker to install, e.g. `1.12.6`, `17.05`. It allows to upgrade to latest version by specifying `latest`.
-
-Default value: `17.06`
-
-### `docker_proxy`, `docker_http_proxy`, `docker_https_proxy`, `docker_no_proxy`
-
-`docker_proxy` specifies if proxy need to be applied. Default value of `docker_proxy` is no. If you need proxy set it to yes and updated other three variables as needed.
-
-## Dependencies
-
-None
-
-## Example Playbook
-
-Install Docker
+Just install Docker with default config
 ```yaml
 - hosts: servers
   roles:
     - mongrelion.docker
 ```
 
-Install and configure docker
+Install and configure docker daemon
 ```yaml
 - hosts: servers
   roles:
@@ -48,14 +50,14 @@ Install and configure docker
         userland-proxy: false
 ```
 
-## Testing
+## Local Testing
 
 The preferred way of locally testing the role is to use Docker and [molecule](https://github.com/metacloud/molecule) (v1.25). You will have to install Docker on your system. See Get started for a Docker package suitable to for your system.
 All packages you need to can be specified in one line:
 ```sh
-pip install ansible 'ansible-lint>=3.4.15' 'molecule==1.25.0' docker 'testinfra>=1.7.0,<=1.10.1'
+pip install ansible 'ansible-lint>=3.4.15' 'molecule==1.25.0' docker 'testinfra>=1.7.0,<=1.10.1' jmespath
 ```
-This should be similar to one listed in `.travis.yml` file in `install` section. 
+This should be similar to one listed in `.travis.yml` file in `install` section.
 After installing test suit you can run test by running
 ```sh
 molecule test
@@ -64,7 +66,7 @@ For more information about molecule go to their [docs](http://molecule.readthedo
 
 ## License
 
-MIT
+This project is licensed under MIT License. See [LICENSE](/LICENSE) for more details.
 
 ## Author Information
 
