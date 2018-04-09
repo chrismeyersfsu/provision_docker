@@ -71,3 +71,18 @@ This project is licensed under MIT License. See [LICENSE](/LICENSE) for more det
 ## Author Information
 
 You can find me on Twitter: [@mongrelion](https://twitter.com/mongrelion)
+
+## Contributors
+
+- Carlos Leon (@mongrelion)
+- Paweł Krupa (@paulfantom)
+- Marcus Levine (@marcusianlevine)
+- Manuel Hutter (@mhutter)
+- Dmitri Bichko (@dbichko)
+- Zane Westover (@zanewestover)
+- Bruce Becker (@brucellino)
+- David Wahlstrom (@drwahl)
+- Max Oreshnikov (@maxim0r)
+- Nicholas E. Rabenau (@nerab)
+- Petr Balogh (@petr-balogh)
+- ramz (@ageekymonk)
