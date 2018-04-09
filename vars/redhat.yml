@@ -1,3 +1,7 @@
+grafana_package: "docker-ce{{ (docker_version != 'latest') | ternary('-' ~ docker_version, '') }}"
 docker_dependencies:
   - ca-certificates
   - yum-utils
+  - epel-release
+  - e2fsprogs
+  - python2-pip

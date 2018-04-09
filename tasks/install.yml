@@ -1,17 +1,57 @@
 ---
-- name: Compose md5 checksum
-  set_fact:
-    __docker_setup_script_checksum: "md5:{{ docker_setup_script_md5_sum }}"
-  when: docker_setup_script_md5_sum != ""
+- name: install system dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  register: __ret
+  retries: 5
+  until: __ret is succeeded
+  with_items: "{{ docker_dependencies }}"
 
-- name: Download docker setup script for desired version
-  get_url:
-    url: "{{ docker_setup_script_url }}"
-    dest: "/tmp/docker-setup.sh"
-    checksum: "{{ __docker_setup_script_checksum|default(omit) }}"
-    mode: 0755
+- name: remove old versions
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - lxc-docker
+    - docker-engine
+    - docker
+    - docker.io
 
-- name: Execute docker setup script
-  shell: "/tmp/docker-setup.sh"
-  tags:
-    - skip_ansible_lint
+- block:
+  - name: add GPG key
+    apt_key:
+      url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+      state: present
+
+  - name: add docker repository | Debian
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+      state: present
+  when: ansible_os_family == "Debian"
+
+- name: add docker repository | RedHat
+  yum_repository:
+    name: docker-ce-stable
+    description: "Docker CE Stable - $basearch"
+    baseurl: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/$releasever/$basearch/stable"
+    gpgcheck: true
+    gpgkey: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+  when: ansible_os_family == "RedHat" and ansible_distribution != "OracleLinux"
+
+- name: Install docker
+  package:
+    name: "{{ docker_package }}"
+    state: "{{ (docker_version == 'latest') | ternary('latest', 'present') }}"
+    update_cache: yes
+  register: __ret
+  retries: 10
+  until: __ret is succeeded
+  notify:
+    - restart docker
+
+- name: ensure docker-py module is installed
+  pip:
+    name: docker-py
+    version: 1.9.0
+  when: dockerpy

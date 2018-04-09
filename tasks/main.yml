@@ -7,65 +7,9 @@
 
 - include: preflight.yml
 
-- name: ensure docker dependencies are installed
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ docker_dependencies }}"
+- include: install.yml
 
-- name: check if docker is installed
-  command: which dockerd
-  register: which_dockerd
-  changed_when: False
-  ignore_errors: yes
-
-- include: "install.yml"
-  when: docker_upgrade or (which_dockerd | failed)
-
-- name: ensure config folder is present
-  file:
-    path: /etc/docker
-    state: directory
-
-- name: ensure docker-py module is installed
-  pip:
-    name: docker-py
-    version: 1.9.0
-  when: dockerpy
-
-- name: create directory for proxy file
-  file:
-    path: /etc/systemd/system/docker.service.d
-    state: directory
-  when: docker_proxy
-
-- name: create http-proxy.conf
-  template:
-    src: http-proxy.j2.conf
-    dest: /etc/systemd/system/docker.service.d/http-proxy.conf
-  notify:
-    - reload unit
-    - restart docker
-  when: docker_proxy
-
-- name: ensure daemon config file is present
-  template:
-    src: daemon.j2.json
-    dest: /etc/docker/daemon.json
-  notify:
-    - restart docker
-
-- name: ensure unit file folder is present
-  file:
-    path: /etc/systemd/system
-    state: directory
-
-- name: ensure unit file is present & up to date
-  template:
-    src: docker.j2.service
-    dest: /etc/systemd/system/docker.service
-  notify:
-    - restart docker
+- include: configure.yml
 
 - name: ensure starts on system boot
   systemd:

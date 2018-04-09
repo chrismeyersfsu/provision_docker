@@ -46,9 +46,4 @@ def test_service(host):
 
 
 def test_packages(host):
-    if host.system_info.distribution == 'ol':
-        DOCKER = 'docker-engine'
-    else:
-        DOCKER = 'docker-ce'
-
-    assert host.package(DOCKER).is_installed
+    assert host.package('docker-ce').is_installed
