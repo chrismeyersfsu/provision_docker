@@ -5,7 +5,6 @@
 [![Build Status](https://travis-ci.org/mongrelion/ansible-role-docker.svg?branch=master)](https://travis-ci.org/mongrelion/ansible-role-docker)
 [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![Ansible Role](https://img.shields.io/badge/ansible%20role-mongrelion.docker-blue.svg)](https://galaxy.ansible.com/mongrelion/docker/)
-[![GitHub tag](https://img.shields.io/github/tag/mongrelion/ansible-role-docker.svg)](https://github.com/mongrelion/ansible-role-docker/tags)
 
 ## Description
 
