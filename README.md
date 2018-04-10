@@ -73,7 +73,7 @@ You can find me on Twitter: [@mongrelion](https://twitter.com/mongrelion)
 
 ## Contributors
 
-- Carlos Leon ([@mongrelion](https://github.com/mongrelion)
+- Carlos Leon ([@mongrelion](https://github.com/mongrelion))
 - Paweł Krupa ([@paulfantom](https://github.com/paulfantom))
 - Marcus Levine ([@marcusianlevine](https://github.com/marcusianlevine))
 - Manuel Hutter ([@mhutter](https://github.com/mhutter))
