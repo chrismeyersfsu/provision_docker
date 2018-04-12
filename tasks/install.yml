@@ -50,8 +50,7 @@
   notify:
     - restart docker
 
-- name: ensure docker-py module is installed
+- name: ensure docker-compose is installed
   pip:
-    name: docker-py
-    version: 1.9.0
-  when: dockerpy
+    name: docker-compose
+  when: docker_compose

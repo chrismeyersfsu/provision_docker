@@ -1,5 +1,5 @@
 ---
-dockerpy: no
+docker_compose: yes
 
 docker_proxy: no
 docker_http_proxy: ""
