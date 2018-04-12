@@ -52,5 +52,5 @@
 
 - name: ensure docker-compose is installed
   pip:
-    name: docker-compose
+    name: "docker-compose"
   when: docker_compose
