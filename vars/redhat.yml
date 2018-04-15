@@ -4,4 +4,3 @@ docker_dependencies:
   - yum-utils
   - epel-release
   - e2fsprogs
-  - python2-pip

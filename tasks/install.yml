@@ -50,7 +50,29 @@
   notify:
     - restart docker
 
-- name: ensure docker-compose is installed
-  pip:
-    name: "docker-compose"
+
+- block:
+  - name: Install pip
+    package:
+      name: python2-pip
+      state: present
+    when: ansible_os_family | lower != "debian"
+
+  - name: Install pip | Debian
+    apt:
+      name: python-pip
+      state: present
+    register: __pip
+    when: ansible_os_family | lower == "debian"
+
+  # https://stackoverflow.com/questions/27341064/how-do-i-fix-importerror-cannot-import-name-incompleteread
+  - name: Upgrade pip | Debian
+    command: pip install --upgrade pip
+    when: __pip is changed
+
+  - name: ensure docker-compose is installed
+    pip:
+      name: "{{ item }}"
+    with_items:
+      - docker-compose
   when: docker_compose
