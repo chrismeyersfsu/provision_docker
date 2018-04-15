@@ -27,7 +27,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `docker_no_proxy` | "" | Comma-separated list of hosts which won't use HTTP proxy |
 | `docker_version` | "17.06" | docker version which should be installed on target server. Can use `latest` for updates |
 | `docker_default_config` | [ storage-driver: devicemapper, log-level: info ] | Docker daemon configuration |
-| `docker_users` | [] | Add users to docker group |
+| `docker_users` | [] | Add users to docker group. Users must exist before adding. |
 
 ## Example
 
