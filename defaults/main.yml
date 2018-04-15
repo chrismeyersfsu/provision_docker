@@ -13,3 +13,7 @@ docker_version: "17.06"
 docker_default_config:
   storage-driver: devicemapper
   log-level: info
+
+docker_users: []
+# docker_users:
+#   - "{{ ansible_env['SUDO_USER'] | default(ansible_user_id) }}"
