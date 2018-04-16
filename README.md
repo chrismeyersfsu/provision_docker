@@ -27,6 +27,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `docker_no_proxy` | "" | Comma-separated list of hosts which won't use HTTP proxy |
 | `docker_version` | "17.06" | docker version which should be installed on target server. Can use `latest` for updates |
 | `docker_default_config` | [ storage-driver: devicemapper, log-level: info ] | Docker daemon configuration |
+| `docker_users` | [] | Add users to docker group. Users must exist before adding. Construct like `- {{ ansible_env['SUDO_USER'] \| default(ansible_user_id) }}` could be used to specify user which is used for ansible connection to host. |
 
 ## Example
 

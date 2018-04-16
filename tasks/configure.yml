@@ -34,3 +34,10 @@
     src: docker.j2.service
     dest: /etc/systemd/system/docker.service
   notify: restart docker
+
+- name: Add privileged users to docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+  with_items: "{{ docker_users }}"

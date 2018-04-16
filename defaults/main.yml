@@ -13,3 +13,5 @@ docker_version: "17.06"
 docker_default_config:
   storage-driver: devicemapper
   log-level: info
+
+docker_users: []
