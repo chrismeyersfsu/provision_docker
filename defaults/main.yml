@@ -15,5 +15,3 @@ docker_default_config:
   log-level: info
 
 docker_users: []
-# docker_users:
-#   - "{{ ansible_env['SUDO_USER'] | default(ansible_user_id) }}"
