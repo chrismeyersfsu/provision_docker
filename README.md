@@ -20,7 +20,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
-| `dockerpy` | no | Install docker-py package |
+| `docker_compose` | yes | Install docker-compose package |
 | `docker_proxy` | no | Enable HTTP proxy setup |
 | `docker_http_proxy` | "" | HTTP proxy server address |
 | `docker_https_proxy` | "" | HTTPS proxy server address |
