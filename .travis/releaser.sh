@@ -29,7 +29,9 @@ GIT_MAIL="mail@carlosleon.info"
 GIT_USER="mongrelion"
 ORGANIZATION=$(echo "$TRAVIS_REPO_SLUG" | awk -F '/' '{print $1}')
 PROJECT=$(echo "$TRAVIS_REPO_SLUG" | awk -F '/' '{print $2}')
-GALAXY_URL="https://galaxy.ansible.com/${ORGANIZATION}/${PROJECT#ansible-}"
+GALAXY_NAME="${PROJECT#ansible-}"  # remove `ansible-` prefix
+GALAXY_NAME="${GALAXY_NAME#role-}"  # remove `role-` prefix, for roles which name start with `ansible-role-`
+GALAXY_URL="https://galaxy.ansible.com/${ORGANIZATION}/${GALAXY_NAME}"
 
 # Git config
 git config --global user.email "${GIT_MAIL}"
