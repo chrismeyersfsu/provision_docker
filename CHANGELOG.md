@@ -1,6 +1,6 @@
 # Change Log
 
-## [0.1.1](https://galaxy.ansible.com/mongrelion/role-docker) (2018-05-01)
+## [0.1.1](https://galaxy.ansible.com/mongrelion/docker) (2018-05-01)
 **Closed issues:**
 
 - docker-compose ? [\#39](https://github.com/mongrelion/ansible-role-docker/issues/39)
@@ -26,7 +26,7 @@
 - integration tests [\#30](https://github.com/mongrelion/ansible-role-docker/pull/30) ([paulfantom](https://github.com/paulfantom))
 - Change location of systemd service file [\#28](https://github.com/mongrelion/ansible-role-docker/pull/28) ([paulfantom](https://github.com/paulfantom))
 
-## [v0.1.0](https://galaxy.ansible.com/mongrelion/role-docker) (2018-03-20)
+## [0.1.0](https://galaxy.ansible.com/mongrelion/docker) (2018-03-20)
 **Implemented enhancements:**
 
 - any plans to support for Ubuntu 14.04, 16.04 ? [\#3](https://github.com/mongrelion/ansible-role-docker/issues/3)
