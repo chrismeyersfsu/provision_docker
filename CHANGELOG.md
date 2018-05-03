@@ -1,5 +1,11 @@
 # Change Log
 
+## [**Next release**](https://galaxy.ansible.com/mongrelion/docker)
+
+**Merged pull requests:**
+
+- Add docker-common package to be removed before installation [\#48](https://github.com/mongrelion/ansible-role-docker/pull/48) ([lukas-bednar](https://github.com/lukas-bednar))
+
 ## [0.1.1](https://galaxy.ansible.com/mongrelion/docker) (2018-05-01)
 **Closed issues:**
 
