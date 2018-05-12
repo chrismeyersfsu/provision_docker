@@ -20,15 +20,15 @@
     - docker.io
 
 - block:
-  - name: add GPG key
-    apt_key:
-      url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
-      state: present
+    - name: add GPG key
+      apt_key:
+        url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+        state: present
 
-  - name: add docker repository | Debian
-    apt_repository:
-      repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
-      state: present
+    - name: add docker repository | Debian
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+        state: present
   when: ansible_os_family == "Debian"
 
 - name: add docker repository | RedHat
@@ -44,36 +44,35 @@
   package:
     name: "{{ docker_package }}"
     state: "{{ (docker_version == 'latest') | ternary('latest', 'present') }}"
-    update_cache: yes
+    update_cache: true
   register: __ret
   retries: 10
   until: __ret is succeeded
   notify:
     - restart docker
 
-
 - block:
-  - name: Install pip
-    package:
-      name: python2-pip
-      state: present
-    when: ansible_os_family | lower != "debian"
+    - name: Install pip
+      package:
+        name: python2-pip
+        state: present
+      when: ansible_os_family | lower != "debian"
 
-  - name: Install pip | Debian
-    apt:
-      name: python-pip
-      state: present
-    register: __pip
-    when: ansible_os_family | lower == "debian"
+    - name: Install pip | Debian
+      apt:
+        name: python-pip
+        state: present
+      register: __pip
+      when: ansible_os_family | lower == "debian"
 
-  # https://stackoverflow.com/questions/27341064/how-do-i-fix-importerror-cannot-import-name-incompleteread
-  - name: Upgrade pip | Debian
-    command: pip install --upgrade pip
-    when: __pip is changed
+    # https://stackoverflow.com/questions/27341064/how-do-i-fix-importerror-cannot-import-name-incompleteread
+    - name: Upgrade pip | Debian
+      command: pip install --upgrade pip
+      when: __pip is changed
 
-  - name: ensure docker-compose is installed
-    pip:
-      name: "{{ item }}"
-    with_items:
-      - docker-compose
+    - name: ensure docker-compose is installed
+      pip:
+        name: "{{ item }}"
+      with_items:
+        - docker-compose
   when: docker_compose

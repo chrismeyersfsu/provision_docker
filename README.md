@@ -52,17 +52,17 @@ Install and configure docker daemon
 
 ## Local Testing
 
-The preferred way of locally testing the role is to use Docker and [molecule](https://github.com/metacloud/molecule) (v1.25). You will have to install Docker on your system. See Get started for a Docker package suitable to for your system.
+The preferred way of locally testing the role is to use Docker and [molecule](https://github.com/metacloud/molecule) (v2.x). You will have to install Docker on your system. See Get started for a Docker package suitable to for your system.
 All packages you need to can be specified in one line:
 ```sh
-pip install ansible 'ansible-lint>=3.4.15' 'molecule==1.25.0' docker 'testinfra>=1.7.0,<=1.10.1' jmespath
+pip install ansible 'ansible-lint>=3.4.15' 'molecule>2.12.0' docker 'testinfra>=1.7.0'
 ```
 This should be similar to one listed in `.travis.yml` file in `install` section.
 After installing test suit you can run test by running
 ```sh
 molecule test
 ```
-For more information about molecule go to their [docs](http://molecule.readthedocs.io/en/stable-1.25/).
+For more information about molecule go to their [docs](https://molecule.readthedocs.io/en/latest/).
 
 ## License
 

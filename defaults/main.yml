@@ -1,14 +1,14 @@
 ---
-docker_compose: yes
+docker_compose: true
 
-docker_proxy: no
+docker_proxy: false
 docker_http_proxy: ""
 docker_https_proxy: ""
 docker_no_proxy: ""
 
 docker_version: "17.06"
-#docker_version: "latest"
-#docker_upgrade: false
+# docker_version: "latest"
+# docker_upgrade: false
 
 docker_default_config:
   storage-driver: devicemapper

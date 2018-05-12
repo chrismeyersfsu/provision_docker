@@ -14,4 +14,4 @@
 - name: ensure starts on system boot
   systemd:
     name: docker
-    enabled: yes
+    enabled: true

@@ -4,6 +4,7 @@
 # Ignore molecule and pytest files
 **__pycache__**
 .molecule
+.pytest_cache
 
 # Ignore retry files
 *.retry
