@@ -4,6 +4,7 @@
 
 **Merged pull requests:**
 
+- move tests to molecule 2.x [\#49](https://github.com/mongrelion/ansible-role-docker/pull/49) ([paulfantom](https://github.com/paulfantom))
 - Add docker-common package to be removed before installation [\#48](https://github.com/mongrelion/ansible-role-docker/pull/48) ([lukas-bednar](https://github.com/lukas-bednar))
 
 ## [0.1.1](https://galaxy.ansible.com/mongrelion/docker) (2018-05-01)
