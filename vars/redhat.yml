@@ -1,5 +1,5 @@
 ---
-docker_package: "docker-ce{{ (docker_version != 'latest') | ternary('-' ~ docker_version, '') }}"
+docker_package: "docker-ce{{ (docker_version != 'latest') | ternary('-' ~ docker_version ~ '*', '') }}"
 docker_dependencies:
   - ca-certificates
   - yum-utils
