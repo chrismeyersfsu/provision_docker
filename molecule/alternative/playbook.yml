@@ -1,0 +1,14 @@
+---
+- name: Alternative variables test
+  hosts: all
+  any_errors_fatal: true
+  become: true
+  roles:
+    - ansible-role-docker
+  vars:
+    docker_compose: false
+    docker_version: latest
+    docker_default_config:
+      storage-driver: "vfs"
+    docker_users:
+      - test

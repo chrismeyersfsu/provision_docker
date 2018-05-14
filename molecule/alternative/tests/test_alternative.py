@@ -49,7 +49,10 @@ def test_service(host):
 
 def test_packages(host):
     assert host.package('docker-ce').is_installed
+    # host.package doesn't support checking if package doesn't exist
+    # assert not host.package('python-pip').is_installed
+    assert not host.file('/usr/bin/pip').exists
 
 
-def test_pip(host):
-    assert 'docker-compose' in host.pip_package.get_packages()
+def test_user(host):
+    assert 'docker' in host.user("test").groups

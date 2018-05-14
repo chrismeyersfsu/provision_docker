@@ -20,8 +20,13 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  playbooks:
+    create: ../default/create.yml
+    prepare: prepare.yml
+    converge: playbook.yml
+    destroy: ../default/destroy.yml
 scenario:
-  name: default
+  name: alternative
 verifier:
   name: testinfra
   lint:
