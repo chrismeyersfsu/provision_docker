@@ -12,3 +12,4 @@ provision_docker_inventory_group: []
 provision_docker_groups:
   - 'docker_containers'
 provision_docker_use_docker_connection: true
+provision_docker_install_packages: true
