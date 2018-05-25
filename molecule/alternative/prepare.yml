@@ -1,0 +1,12 @@
+---
+- name: Prepare Environment
+  hosts: all
+  become: true
+  tasks:
+    - name: Create test user
+      user:
+        name: test
+        shell: /bin/sh
+        system: no
+        createhome: yes
+        home: /home/test
