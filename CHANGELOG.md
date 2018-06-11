@@ -8,6 +8,7 @@
 
 **Merged pull requests:**
 
+- Fix \_\_pycache\_\_ in .gitignore [\#51](https://github.com/mongrelion/ansible-role-docker/pull/51) ([Porkepix](https://github.com/Porkepix))
 - alternative test scenario [\#50](https://github.com/mongrelion/ansible-role-docker/pull/50) ([paulfantom](https://github.com/paulfantom))
 - move tests to molecule 2.x [\#49](https://github.com/mongrelion/ansible-role-docker/pull/49) ([paulfantom](https://github.com/paulfantom))
 - Add docker-common package to be removed before installation [\#48](https://github.com/mongrelion/ansible-role-docker/pull/48) ([lukas-bednar](https://github.com/lukas-bednar))
