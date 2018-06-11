@@ -2,7 +2,7 @@
 /.vagrant/
 
 # Ignore molecule and pytest files
-**__pycache__**
+__pycache__/
 .molecule
 .pytest_cache
 
