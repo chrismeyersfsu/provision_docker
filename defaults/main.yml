@@ -15,3 +15,5 @@ docker_default_config:
   log-level: info
 
 docker_users: []
+
+docker_repo_distribution: "{{ ansible_distribution | lower }}"

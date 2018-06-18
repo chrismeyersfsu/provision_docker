@@ -1,4 +1,6 @@
 ---
+# allows also install on RHEL with CentOS repos.
+docker_repo_distribution: "{{ (ansible_distribution == 'RedHat')| ternary('centos', ansible_distribution) | lower }}"
 docker_package: "docker-ce{{ (docker_version != 'latest') | ternary('-' ~ docker_version ~ '*', '') }}"
 docker_dependencies:
   - ca-certificates
