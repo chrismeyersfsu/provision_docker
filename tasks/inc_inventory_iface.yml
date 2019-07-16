@@ -66,4 +66,3 @@
       with_indexed_items: "{{ provision_docker_inventory_group }}"
       changed_when: false
   when: provision_docker_use_docker_connection
-

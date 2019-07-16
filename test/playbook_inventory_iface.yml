@@ -17,4 +17,3 @@
 
   tasks:
     - import_tasks: inc_verify_transformers.yml
-

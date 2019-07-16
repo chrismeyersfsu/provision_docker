@@ -24,4 +24,3 @@
     - { role: test_add_file, test_add_file_path: "{{ file }}"  }
   tasks:
     - import_tasks: "inc_verify_hosts.yml"
-
