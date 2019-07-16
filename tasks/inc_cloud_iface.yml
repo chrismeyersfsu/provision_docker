@@ -7,7 +7,7 @@
     restart: "{{ item.restart|default(True) }}"
     tls: "{{ provision_docker_use_tls }}"
     stop_timeout: 1
-    tty: "{{provision_docker_use_docker_connection | bool}}"
+    tty: "{{ provision_docker_use_docker_connection | bool }}"
     expose: "{{ item.expose|default(['1-65535']) }}"
     ports: "{{ item.ports|default(omit) }}"
     command: "{{ item.command|default(omit) }}"
