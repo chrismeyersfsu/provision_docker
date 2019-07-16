@@ -21,9 +21,8 @@
   with_items: "{{ provision_docker_inventory_group }}"
 
 - name: Get IP of container
-  local_action:
-    module: "command"
-    args: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item }}"
+  command: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item }}"
+  delegate_to: localhost
   register: provision_docker_ip
   with_items: "{{ provision_docker_inventory_group }}"
   changed_when: false
