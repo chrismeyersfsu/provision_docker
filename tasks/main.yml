@@ -12,4 +12,3 @@
 
 - import_tasks: inc_cloud_iface.yml
   when: (provision_docker_inventory | length) > 0
-

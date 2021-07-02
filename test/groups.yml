@@ -40,5 +40,3 @@
     - name: Ensure group structure
       fail: msg="group2 length {{ groups['group2']|length }}. Groups {{ group_names }}"
       when: "not (groups['group2']|length == 2 and 'group2' in group_names)"
-
-
